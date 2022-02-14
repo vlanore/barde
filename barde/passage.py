@@ -1,7 +1,11 @@
 import sys
 from typing import Callable, Optional
 
-from browser import document, html  # type:ignore ; pylint: disable=import-error
+from browser import (  # type:ignore ; pylint: disable=import-error
+    document,
+    html as bhtml,
+    markdown as mk,
+)
 
 
 PASSAGES = {}
@@ -45,19 +49,24 @@ def passage(*args, **kwargs):
             sys.exit(1)
 
 
-def display(text: str, end=None) -> None:
-    document["main"] <= text
-    if end is None:
-        document["main"] <= html.BR()
-    else:
-        document["main"] <= end
+def markdown(text) -> None:
+    mark, _ = mk.mark(text)
+    document["main"].html += mark
 
 
-def link(text: str, target=None, end=None) -> None:
+def html(text) -> None:
+    document["main"].html += text
+
+
+def title(text) -> None:
+    document["main"] <= bhtml.H1(text)
+
+
+def link(text: str, target=None) -> None:
     if target is None:
         target = text
 
-    document["main"] <= html.A(text, href="javascript:void(0);", id=target)
+    document["main"] <= bhtml.A(text, href="javascript:void(0);", id=target)
     document["main"] <= " "
 
     def result(_, func=PASSAGES[target]):
@@ -65,11 +74,6 @@ def link(text: str, target=None, end=None) -> None:
         func()
 
     document[target].bind("click", result)
-
-    if end is None:
-        document["main"] <= html.BR()
-    else:
-        document["main"] <= end
 
 
 def run():
@@ -81,26 +85,27 @@ if __name__ == "__main__":
 
     @passage(start=True)
     def hello():
-        display(html.H1("Hello, world"))
-        display(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+        title("Hello, world")
+        markdown(
+            "Lorem ipsum **dolor sit amet**, consectetur adipiscing elit, sed do eiusmod "
             "tempor incididunt ut labore et dolore magna aliqua. "
             "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris",
         )
-        display(html.B("I'm bold"))
-
-        link("tralala", end="")
+        html("<i>Youpi tralala</i> graou <br/><br/>")
+        link("tralala")
         link("Y", "youpi")
 
     @passage
     def youpi():
-        display("youpida")
+        title("Youpi")
+        markdown("youpida")
         link("hello")
 
     @passage
     def tralala():
-        display("trouloulala")
-        link("youpi", end="")
+        title("Tralala")
+        markdown("trouloulala")
+        link("youpi")
         link("hello")
 
     run()
