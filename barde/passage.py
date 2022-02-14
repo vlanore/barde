@@ -12,7 +12,7 @@ START: Optional[str] = None
 
 
 def clear_page():
-    document.clear()
+    document["main"].clear()
 
 
 def passage(*args, **kwargs):
@@ -46,19 +46,19 @@ def passage(*args, **kwargs):
 
 
 def display(text: str, end=None) -> None:
-    document <= text
+    document["main"] <= text
     if end is None:
-        document <= html.BR()
+        document["main"] <= html.BR()
     else:
-        document <= end
+        document["main"] <= end
 
 
 def link(text: str, target=None, end=None) -> None:
     if target is None:
         target = text
 
-    document <= html.A(text, href="javascript:void(0);", id=target)
-    document <= " "
+    document["main"] <= html.A(text, href="javascript:void(0);", id=target)
+    document["main"] <= " "
 
     def result(_, func=PASSAGES[target]):
         clear_page()
@@ -67,9 +67,9 @@ def link(text: str, target=None, end=None) -> None:
     document[target].bind("click", result)
 
     if end is None:
-        document <= html.BR()
+        document["main"] <= html.BR()
     else:
-        document <= end
+        document["main"] <= end
 
 
 def run():
@@ -81,9 +81,12 @@ if __name__ == "__main__":
 
     @passage(start=True)
     def hello():
-        display("Hello", end="")
-        display(" world")
-        display("Hi there")
+        display(html.H1("Hello, world"))
+        display(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+            "tempor incididunt ut labore et dolore magna aliqua. "
+            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris",
+        )
         display(html.B("I'm bold"))
 
         link("tralala", end="")
