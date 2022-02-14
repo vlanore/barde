@@ -6,11 +6,15 @@ from browser import (  # type:ignore ; pylint: disable=import-error
     html as bhtml,
     markdown as mk,
 )
+from browser.local_storage import storage  # type:ignore ; pylint: disable=import-error
+from browser.object_storage import (  # type:ignore ; pylint: disable=import-error
+    ObjectStorage,
+)
 
 
 PASSAGES = {}
 
-_state = {}
+STATE = ObjectStorage(storage)
 
 START: Optional[str] = None
 
@@ -34,7 +38,6 @@ def passage(*args, **kwargs):
         case ([start], {}) | ([], {"start": start}) if isinstance(start, bool):
 
             def result(func: Callable, start=start):
-                print("yolo")
                 global START
                 global PASSAGES
 
@@ -83,16 +86,20 @@ def run():
 
 if __name__ == "__main__":
 
+    STATE["a"] = 1
+
     @passage(start=True)
     def hello():
         title("Hello, world")
         markdown(
             "Lorem ipsum **dolor sit amet**, "
             "consectetur adipiscing elit, sed do eiusmod "
-            "tempor incididunt ut labore et dolore magna aliqua. "
-            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris",
+            "tempor ~incididunt~ ut labore et "
+            "dolore magna aliqua.:\n\n"
+            f" * Ut enim ad minim veniam: `{STATE['a']} cm`\n"
+            " * quis nostrud exercitation ullamco laboris",
         )
-        html("<i>Youpi tralala</i> graou <br/><br/>")
+        html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
         link("tralala")
         link("Y", "youpi")
 
@@ -100,6 +107,9 @@ if __name__ == "__main__":
     def youpi():
         title("Youpi")
         markdown("youpida")
+
+        STATE["a"] += 1
+
         link("hello")
 
     @passage

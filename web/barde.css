@@ -18,3 +18,12 @@ body {
     margin-right: auto;
     padding: 15px;
 }
+
+code {
+    border: solid 2px rgb(235, 235, 235);
+    background-color: rgb(246, 246, 246);
+    color: rgb(116, 116, 116);
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 2px;
+}
