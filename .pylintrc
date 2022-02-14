@@ -1,0 +1,16 @@
+[MASTER]
+
+disable =
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    redefined-outer-name,
+    used-before-assignment,
+    too-many-instance-attributes,
+    no-self-use,
+    too-few-public-methods,
+    no-else-return,
+    expression-not-assigned,
+    pointless-statement,
+    global-statement,
+    global-variable-not-assigned

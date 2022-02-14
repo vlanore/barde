@@ -1,11 +1,14 @@
+import sys
 from typing import Callable, Optional
-from browser import document, html
 
-_passages = {}
+from browser import document, html  # type:ignore ; pylint: disable=import-error
+
+
+PASSAGES = {}
 
 _state = {}
 
-_start: Optional[str] = None
+START: Optional[str] = None
 
 
 def clear_page():
@@ -20,26 +23,26 @@ def passage(*args, **kwargs):
 
     match args, kwargs:
         case [func], {} if callable(func):
-            global _passages
-            _passages[func.__name__] = func
+            global PASSAGES
+            PASSAGES[func.__name__] = func
             return func
 
-        case ([start], {}) | ([], {"start": start}) if type(start) == bool:
+        case ([start], {}) | ([], {"start": start}) if isinstance(start, bool):
 
             def result(func: Callable, start=start):
                 print("yolo")
-                global _start
-                global _passages
+                global START
+                global PASSAGES
 
                 if start:
-                    _start = func.__name__
-                _passages[func.__name__] = func
+                    START = func.__name__
+                PASSAGES[func.__name__] = func
                 return func
 
             return result
 
         case _:
-            exit(1)
+            sys.exit(1)
 
 
 def display(text: str, end=None) -> None:
@@ -57,9 +60,9 @@ def link(text: str, target=None, end=None) -> None:
     document <= html.A(text, href="javascript:void(0);", id=target)
     document <= " "
 
-    def result(_, f=_passages[target]):
+    def result(_, func=PASSAGES[target]):
         clear_page()
-        f()
+        func()
 
     document[target].bind("click", result)
 
@@ -70,8 +73,8 @@ def link(text: str, target=None, end=None) -> None:
 
 
 def run():
-    if _start is not None:
-        _passages[_start]()
+    if START is not None:
+        PASSAGES[START]()
 
 
 if __name__ == "__main__":
@@ -81,6 +84,7 @@ if __name__ == "__main__":
         display("Hello", end="")
         display(" world")
         display("Hi there")
+        display(html.B("I'm bold"))
 
         link("tralala", end="")
         link("Y", "youpi")
