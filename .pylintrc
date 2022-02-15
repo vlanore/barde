@@ -13,4 +13,5 @@ disable =
     expression-not-assigned,
     pointless-statement,
     global-statement,
-    global-variable-not-assigned
+    global-variable-not-assigned,
+    unspecified-encoding
