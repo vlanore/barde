@@ -6,10 +6,12 @@
     <script type="text/javascript" src="web/brython.js"></script>
     <script type="text/javascript" src="web/brython_stdlib.js"></script>
     <script type="text/python" src="barde/passage.py" defer></script>
-    <link rel="stylesheet" href="web/barde.css">
+    <link id="stylesheet" rel="stylesheet" href="web/barde.css">
+    <link id="stylesheet-dark" rel="stylesheet alternate" href="web/barde_dark.css">
 </head>
 
 <body onload="brython(1)">
+    <div id="night-mode"></div>
     <div id="main">
     </div>
 </body>

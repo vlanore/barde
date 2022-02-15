@@ -1,15 +1,15 @@
 * {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    color: rgb(39, 39, 39);
+    color: rgb(200, 199, 183);
     line-height: 150%;
 }
 
 a {
-    color: rgb(31, 31, 149);
+    color: rgb(167, 167, 206);
 }
 
 body {
-    background-color: rgb(255, 252, 248);
+    background-color: rgb(23, 23, 41);
 }
 
 img {
@@ -41,9 +41,9 @@ img {
 }
 
 code {
-    border: solid 2px rgb(235, 235, 235);
-    background-color: rgb(246, 246, 246);
-    color: rgb(116, 116, 116);
+    border: solid 2px rgba(235, 235, 235, 0.15);
+    background-color: rgba(246, 246, 246, 0.15);
+    color: rgb(218, 218, 218);
     padding-left: 3px;
     padding-right: 3px;
     border-radius: 2px;

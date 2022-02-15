@@ -3,7 +3,7 @@ from typing import Callable, Optional
 
 from browser import (  # type:ignore ; pylint: disable=import-error
     document,
-    html as bhtml,
+    html as bh,
     markdown as mk,
 )
 from browser.local_storage import storage  # type:ignore ; pylint: disable=import-error
@@ -17,6 +17,41 @@ PASSAGES = {}
 STATE = ObjectStorage(storage)
 
 START: Optional[str] = None
+
+
+def night_mode(_event):
+    """Toggle on night mode."""
+    document["night-mode"].clear()
+    link = document["night-mode"] <= bh.A("☀️", href="javascript:void(0);")
+    link.bind("click", day_mode)
+    document["stylesheet"].rel = "stylesheet alternate"
+    document["stylesheet-dark"].rel = "stylesheet"
+    STATE["style-mode"] = "night"
+
+
+def day_mode(_event):
+    """Toggle on day mode."""
+    document["night-mode"].clear()
+    link = document["night-mode"] <= bh.A("🌙", href="javascript:void(0);")
+    link.bind("click", night_mode)
+    document["stylesheet"].rel = "stylesheet"
+    document["stylesheet-dark"].rel = "stylesheet alternate"
+    STATE["style-mode"] = "day"
+
+
+def select_style():
+    """Select style mode (day or night) based on stored data."""
+    if "style-mode" in STATE.keys():
+        match STATE["style-mode"]:
+            case "day":
+                day_mode(None)
+            case "night":
+                night_mode(None)
+    else:
+        day_mode(None)
+
+
+select_style()
 
 
 def clear_page():
@@ -62,14 +97,14 @@ def html(text) -> None:
 
 
 def title(text) -> None:
-    document["main"] <= bhtml.H1(text)
+    document["main"] <= bh.H1(text)
 
 
 def link(text: str, target=None) -> None:
     if target is None:
         target = text
 
-    document["main"] <= bhtml.A(text, href="javascript:void(0);", id=target)
+    document["main"] <= bh.A(text, href="javascript:void(0);", id=target)
     document["main"] <= " "
 
     def result(_, func=PASSAGES[target]):
@@ -80,7 +115,7 @@ def link(text: str, target=None) -> None:
 
 
 def image(src: str):
-    document["main"] <= bhtml.IMG(src=src)
+    document["main"] <= bh.IMG(src=src)
 
 
 def run():
@@ -98,7 +133,7 @@ if __name__ == "__main__":
         markdown(
             "Lorem ipsum **dolor sit amet**, "
             "consectetur adipiscing elit, sed do eiusmod "
-            "tempor ~incididunt~ ut labore et "
+            "tempor <b>incididunt</b> ut labore et "
             "dolore magna aliqua.:\n\n"
             f" * Ut enim ad minim veniam: `{STATE['a']} cm`\n"
             " * quis nostrud exercitation ullamco laboris",
