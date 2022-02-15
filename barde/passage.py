@@ -109,6 +109,7 @@ def link(text: str, target=None) -> None:
 
     def result(_, func=PASSAGES[target]):
         clear_page()
+        STATE["last_passage"] = target
         func()
 
     document[target].bind("click", result)
@@ -119,13 +120,18 @@ def image(src: str):
 
 
 def run():
-    if START is not None:
+    if "last_passage" in STATE.keys():
+        PASSAGES[STATE["last_passage"]]()
+    elif START is not None:
         PASSAGES[START]()
 
 
 if __name__ == "__main__":
 
-    STATE["a"] = 1
+    @passage(start=True)
+    def init():
+        STATE["a"] = 1
+        hello()
 
     @passage(start=True)
     def hello():
@@ -135,7 +141,7 @@ if __name__ == "__main__":
             "consectetur adipiscing elit, sed do eiusmod "
             "tempor <b>incididunt</b> ut labore et "
             "dolore magna aliqua.:\n\n"
-            f" * Ut enim ad minim veniam: `{STATE['a']} cm`\n"
+            f" * Ut enim ad minim veniam: `{STATE['a']}cm`\n"
             " * quis nostrud exercitation ullamco laboris",
         )
         html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
@@ -147,8 +153,7 @@ if __name__ == "__main__":
         title("Youpi")
         markdown("youpida")
         image(
-            "https://upload.wikimedia.org/wikipedia/"
-            "commons/c/c9/Lute_2%2C_MfM.Uni-Leipzig.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/8/87/Old_book_bindings.jpg"
         )
 
         STATE["a"] += 1
