@@ -79,6 +79,10 @@ def link(text: str, target=None) -> None:
     document[target].bind("click", result)
 
 
+def image(src: str):
+    document["main"] <= bhtml.IMG(src=src)
+
+
 def run():
     if START is not None:
         PASSAGES[START]()
@@ -107,6 +111,10 @@ if __name__ == "__main__":
     def youpi():
         title("Youpi")
         markdown("youpida")
+        image(
+            "https://upload.wikimedia.org/wikipedia/"
+            "commons/c/c9/Lute_2%2C_MfM.Uni-Leipzig.jpg"
+        )
 
         STATE["a"] += 1
 
