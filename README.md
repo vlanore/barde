@@ -10,7 +10,7 @@ Like sugarcube, Barde aims at providing some basic game features (saves, sidebar
 
 Barde uses [Brython](https://brython.info/) to run python in the browser.
 
-Barde uses [Simple.css](https://simplecss.org/) for its default CSS.
+Barde uses [pico.css](https://picocss.com/) for its default CSS.
 
 ## Example
 Here is an example of a simple Barde application that defines two passages with some formatting and a link between the two:
