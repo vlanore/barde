@@ -104,19 +104,20 @@ def title(text) -> None:
     document["main"] <= bh.H1(text)
 
 
-def link(text: str, target=None) -> None:
-    if target is None:
-        target = text
+def link(target_func: Callable, text: str = "") -> None:
+    target_str = target_func.__name__
+    if text == "":
+        text = target_str
 
-    document["main"] <= bh.A(text, href="javascript:void(0);", id=target)
+    document["main"] <= bh.A(text, href="javascript:void(0);", id=target_str)
     document["main"] <= " "
 
-    def result(_, func=PASSAGES[target]):
+    def result(_, func=target_func):
         clear_page()
-        STATE["last_passage"] = target
+        STATE["last_passage"] = target_str
         func()
 
-    document[target].bind("click", result)
+    document[target_str].bind("click", result)
 
 
 def image(src: str):
@@ -150,8 +151,8 @@ if __name__ == "__main__":
         )
         markdown("uis nostrud exercitation ullamco labori\n " * 60)
         html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
-        link("tralala")
-        link("Y", "youpi")
+        link(tralala)
+        link(youpi, "ioupi")
 
     @passage
     def youpi():
@@ -163,13 +164,13 @@ if __name__ == "__main__":
 
         STATE["a"] += 1
 
-        link("hello")
+        link(hello)
 
     @passage
     def tralala():
         title("Tralala")
         markdown("trouloulala")
-        link("youpi")
-        link("hello")
+        link(youpi)
+        link(hello)
 
     run()
