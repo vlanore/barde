@@ -19,43 +19,40 @@ STATE = ObjectStorage(storage)
 START: Optional[str] = None
 
 
-def night_mode(_event):
-    """Toggle on night mode."""
+def dark_mode(_event):
+    """Toggle on dark mode."""
     document["theme-select"].clear()
-    link = document["theme-select"] <= bh.A("day", href="javascript:void(0);")
-    document["theme-select"] <= " - night"
-    link.bind("click", day_mode)
+    link = document["theme-select"] <= bh.A("light", href="javascript:void(0);")
+    document["theme-select"] <= " - dark"
+    link.bind("click", light_mode)
     document["stylesheet"].rel = "stylesheet alternate"
     document["stylesheet-dark"].rel = "stylesheet"
     document["html"].setAttribute("data-theme", "dark")
-    STATE["style-mode"] = "night"
+    STATE["style-mode"] = "dark"
 
 
-def day_mode(_event):
-    """Toggle on day mode."""
+def light_mode(_event):
+    """Toggle on light mode."""
     document["theme-select"].clear()
-    document["theme-select"] <= "day - "
-    link = document["theme-select"] <= bh.A("night", href="javascript:void(0);")
-    link.bind("click", night_mode)
+    document["theme-select"] <= "light - "
+    link = document["theme-select"] <= bh.A("dark", href="javascript:void(0);")
+    link.bind("click", dark_mode)
     document["stylesheet"].rel = "stylesheet"
     document["stylesheet-dark"].rel = "stylesheet alternate"
     document["html"].setAttribute("data-theme", "light")
-    STATE["style-mode"] = "day"
+    STATE["style-mode"] = "light"
 
 
 def select_style():
-    """Select style mode (day or night) based on stored data."""
+    """Select style mode (light or dark) based on stored data."""
     if "style-mode" in STATE.keys():
         match STATE["style-mode"]:
-            case "day":
-                day_mode(None)
-            case "night":
-                night_mode(None)
+            case "light":
+                light_mode(None)
+            case "dark":
+                dark_mode(None)
     else:
-        day_mode(None)
-
-
-select_style()
+        light_mode(None)
 
 
 def clear_page():
@@ -104,6 +101,14 @@ def title(text) -> None:
     document["main"] <= bh.H1(text)
 
 
+def display_sidebar(content: str, markdown=False) -> None:
+    if markdown:
+        mark, _ = mk.mark(content)
+        document["sidebar-content"].html += mark
+    else:
+        document["sidebar-content"].html += content
+
+
 def link(target_func: Callable, text: str = "") -> None:
     target_str = target_func.__name__
     if text == "":
@@ -124,7 +129,17 @@ def image(src: str):
     document["main"] <= bh.IMG(src=src)
 
 
+def restart(_event):
+    document["main"].clear()
+    document["sidebar-content"].clear()
+    STATE.clear()
+    run()
+
+
 def run():
+    select_style()
+    document["restart"].bind("click", restart)
+
     if "last_passage" in STATE.keys():
         PASSAGES[STATE["last_passage"]]()
     elif START is not None:
@@ -136,9 +151,10 @@ if __name__ == "__main__":
     @passage(start=True)
     def init():
         STATE["a"] = 1
+        display_sidebar("**Stats**<br/>Strenght: *3*<br/>Dex: *4*", markdown=True)
         hello()
 
-    @passage(start=True)
+    @passage
     def hello():
         title("Hello, world")
         markdown(
