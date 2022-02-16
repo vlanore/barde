@@ -14,14 +14,21 @@
 }
 
 :root {
-    --sidebar-width: min(20vw, 140px);
-    --sidebar-margin: min(50px, 3vw);
+    --typography-spacing-vertical: 1rem;
+    --left-sidebar-width: max(25vw, 140px);
+    --right-sidebar-width: max(25vw, 140px);
+    --main-width: min(45vw, 500px)
+}
+
+h1 {
     --typography-spacing-vertical: 1rem;
 }
 
 body {
-    grid-template-columns: calc(var(--sidebar-width) + 2 * var(--sidebar-margin)) 1fr min(45rem, calc(90% - var(--sidebar-width) - 2 * var(--sidebar-margin))) 1fr;
+    grid-template-columns: var(--sidebar-width) 1fr var(--main-width) 1fr var(--sidebar-width);
     display: grid;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 main {
@@ -31,23 +38,50 @@ main {
 #sidebar {
     text-align: center;
     padding: 0 0.5rem 2rem 0.5rem;
-    box-sizing: border-box;
-    position: fixed;
+    position: sticky;
+    grid-column: 1;
     height: calc(100vh - 110px);
-    width: var(--sidebar-width);
-    margin-left: var(--sidebar-margin);
-    margin-top: -10px;
+    margin: 0;
     top: 0;
-    box-shadow: 5px 5px 15px rgba(61, 61, 61, 0.24);
     font-size: 80%;
+    max-width: 300px;
+    padding: 15px;
+    padding-top: 50px;
 }
 
-#sidebar header {
-    padding-top: 2rem;
-    margin-top: 0;
+#sidebar2 {
+    text-align: center;
+    padding: 0 0.5rem 2rem 0.5rem;
+    position: sticky;
+    grid-column: 5;
+    height: calc(100vh - 110px);
+    margin: 0;
+    top: 0;
+    font-size: 80%;
+    max-width: 300px;
+    margin-left: auto;
+    padding: 15px;
+    padding-top: 50px;
+}
+
+#sidebar article {
+    margin: 0;
+    height: 100%;
+    margin-left: -20px;
 }
 
 #sidebar h1 {
+    margin: 0;
+    font-size: medium;
+}
+
+#sidebar2 article {
+    margin: 0;
+    height: 100%;
+    margin-right: -20px;
+}
+
+#sidebar2 h1 {
     margin: 0;
     font-size: medium;
 }
