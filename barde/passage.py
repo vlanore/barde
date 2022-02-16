@@ -21,8 +21,9 @@ START: Optional[str] = None
 
 def night_mode(_event):
     """Toggle on night mode."""
-    document["night-mode"].clear()
-    link = document["night-mode"] <= bh.A("☀️", href="javascript:void(0);")
+    document["theme-select"].clear()
+    link = document["theme-select"] <= bh.A("day", href="javascript:void(0);")
+    document["theme-select"] <= " - night"
     link.bind("click", day_mode)
     document["stylesheet"].rel = "stylesheet alternate"
     document["stylesheet-dark"].rel = "stylesheet"
@@ -32,8 +33,9 @@ def night_mode(_event):
 
 def day_mode(_event):
     """Toggle on day mode."""
-    document["night-mode"].clear()
-    link = document["night-mode"] <= bh.A("🌙", href="javascript:void(0);")
+    document["theme-select"].clear()
+    document["theme-select"] <= "day - "
+    link = document["theme-select"] <= bh.A("night", href="javascript:void(0);")
     link.bind("click", night_mode)
     document["stylesheet"].rel = "stylesheet"
     document["stylesheet-dark"].rel = "stylesheet alternate"

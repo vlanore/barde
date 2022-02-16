@@ -1,24 +1,11 @@
-#night-mode {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    filter: sepia(1) contrast(50%) opacity(10%);
-}
-
-#night-mode a {
-    text-decoration: none;
-}
-
-#night-mode:hover {
-    filter: opacity(50%);
-}
-
-:root {
-    --typography-spacing-vertical: 1rem;
-}
-
-h1 {
-    --typography-spacing-vertical: 1rem;
+:root,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    --typography-spacing-vertical: 1.5rem;
 }
 
 body {
@@ -40,10 +27,15 @@ body {
     height: calc(100vh - 110px);
     margin: 0;
     top: 0;
-    font-size: 80%;
+    font-size: medium;
     max-width: 300px;
     padding: 20px;
     padding-top: 50px;
+}
+
+#sidebar p,
+#sidebar2 p {
+    font-size: medium;
 }
 
 #sidebar {
