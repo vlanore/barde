@@ -26,6 +26,7 @@ def night_mode(_event):
     link.bind("click", day_mode)
     document["stylesheet"].rel = "stylesheet alternate"
     document["stylesheet-dark"].rel = "stylesheet"
+    document["html"].setAttribute("data-theme", "dark")
     STATE["style-mode"] = "night"
 
 
@@ -36,6 +37,7 @@ def day_mode(_event):
     link.bind("click", night_mode)
     document["stylesheet"].rel = "stylesheet"
     document["stylesheet-dark"].rel = "stylesheet alternate"
+    document["html"].setAttribute("data-theme", "light")
     STATE["style-mode"] = "day"
 
 

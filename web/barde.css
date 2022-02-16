@@ -14,17 +14,14 @@
 }
 
 :root {
-    --color-dark: rgb(26, 37, 48);
-    --color-grey1: rgb(44, 62, 80);
-    --color-grey2: rgb(52, 73, 94);
-    --color-red: rgb(231, 76, 60);
-    --color-white: rgb(255, 255, 255);
     --sidebar-width: min(20vw, 140px);
-    --sidebar-margin: min(50px, 3vw)
+    --sidebar-margin: min(50px, 3vw);
+    --typography-spacing-vertical: 1rem;
 }
 
 body {
     grid-template-columns: calc(var(--sidebar-width) + 2 * var(--sidebar-margin)) 1fr min(45rem, calc(90% - var(--sidebar-width) - 2 * var(--sidebar-margin))) 1fr;
+    display: grid;
 }
 
 main {
@@ -42,6 +39,15 @@ main {
     margin-top: -10px;
     top: 0;
     box-shadow: 5px 5px 15px rgba(61, 61, 61, 0.24);
-    background-color: var(--color-red);
-    color: var(--color-white);
+    font-size: 80%;
+}
+
+#sidebar header {
+    padding-top: 2rem;
+    margin-top: 0;
+}
+
+#sidebar h1 {
+    margin: 0;
+    font-size: medium;
 }
