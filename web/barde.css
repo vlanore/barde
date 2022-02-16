@@ -12,3 +12,36 @@
 #night-mode:hover {
     filter: opacity(50%);
 }
+
+:root {
+    --color-dark: rgb(26, 37, 48);
+    --color-grey1: rgb(44, 62, 80);
+    --color-grey2: rgb(52, 73, 94);
+    --color-red: rgb(231, 76, 60);
+    --color-white: rgb(255, 255, 255);
+    --sidebar-width: min(20vw, 140px);
+    --sidebar-margin: min(50px, 3vw)
+}
+
+body {
+    grid-template-columns: calc(var(--sidebar-width) + 2 * var(--sidebar-margin)) 1fr min(45rem, calc(90% - var(--sidebar-width) - 2 * var(--sidebar-margin))) 1fr;
+}
+
+main {
+    grid-column: 3;
+}
+
+#sidebar {
+    text-align: center;
+    padding: 0 0.5rem 2rem 0.5rem;
+    box-sizing: border-box;
+    position: fixed;
+    height: calc(100vh - 110px);
+    width: var(--sidebar-width);
+    margin-left: var(--sidebar-margin);
+    margin-top: -10px;
+    top: 0;
+    box-shadow: 5px 5px 15px rgba(61, 61, 61, 0.24);
+    background-color: var(--color-red);
+    color: var(--color-white);
+}

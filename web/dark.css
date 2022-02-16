@@ -6,7 +6,7 @@
     --text: #dcdcdc;
     --text-light: #ababab;
     --border: #666;
-    --accent: #ffb300;
+    --accent: var(--color-red);
     --code: #f06292;
     --preformatted: #ccc;
     --disabled: #111;
@@ -15,4 +15,8 @@
 img,
 video {
     opacity: 0.8;
+}
+
+#sidebar {
+    box-shadow: 2px 0px 15px rgb(0 0 0 / 69%);
 }
