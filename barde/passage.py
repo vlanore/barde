@@ -18,6 +18,17 @@ STATE = ObjectStorage(storage)
 
 START: Optional[str] = None
 
+def hide_sidebar(_event):
+    document["open-sidebar"].style="display:block;"
+    document["sidebar-box"].style="display:none;"
+    document["open-sidebar"].bind("click", open_sidebar)
+
+
+def open_sidebar(_event):
+    document["open-sidebar"].style="display:none;"
+    document["sidebar-box"].style="display:block;"
+    document["hide-sidebar"].bind("click", hide_sidebar)
+
 
 def dark_mode(_event):
     """Toggle on dark mode."""
@@ -137,6 +148,8 @@ def restart(_event):
 
 
 def run():
+    document["hide-sidebar"].bind("click", hide_sidebar)
+
     select_style()
     document["restart"].bind("click", restart)
 
