@@ -46,6 +46,7 @@ body {
     grid-column: 5;
     margin-left: auto;
     overflow: hidden;
+    display: none;
 }
 
 #sidebar article {

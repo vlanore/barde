@@ -186,7 +186,7 @@ if __name__ == "__main__":
             f" * Ut enim ad minim veniam: `{STATE['a']}cm`\n"
             " * quis nostrud exercitation ullamco laboris",
         )
-        markdown("uis nostrud exercitation ullamco labori\n " * 60)
+        markdown(" ".join(["uis nostrud exercitation ullamco labori\n "[(i%15):-(i%4)] for i in range(100)]))
         html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
         link(tralala)
         link(youpi, "ioupi")
