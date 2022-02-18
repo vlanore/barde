@@ -9,7 +9,7 @@ h6 {
 }
 
 body {
-    grid-template-columns: max(25vw, 140px) 1fr min(45vw, 700px) 1fr max(25vw, 140px);
+    grid-template-columns: max(25vw, 140px) 1fr min(70vw, 700px) 1fr 0;
     display: grid;
     max-width: 100vw;
 }
