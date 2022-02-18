@@ -3,3 +3,6 @@ brython*.js
 unicode.txt
 *.egg-info
 Lib/
+demo.html
+index.html
+README.txt
