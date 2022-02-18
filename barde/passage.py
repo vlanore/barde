@@ -21,11 +21,13 @@ START: Optional[str] = None
 def hide_sidebar(_event):
     document["open-sidebar"].style="display:block;"
     document["sidebar-box"].style="display:none;"
+    document["hide-sidebar"].unbind("click")
     document["open-sidebar"].bind("click", open_sidebar)
 
 
 def open_sidebar(_event):
     document["open-sidebar"].style="display:none;"
+    document["open-sidebar"].unbind("click")
     document["sidebar-box"].style="display:block;"
     document["hide-sidebar"].bind("click", hide_sidebar)
 
@@ -35,6 +37,8 @@ def dark_mode(_event):
     document["theme-select"].clear()
     link = document["theme-select"] <= bh.A("light", href="javascript:void(0);")
     document["theme-select"] <= " - dark"
+    link.unbind("click")
+    print("1")
     link.bind("click", light_mode)
     document["stylesheet"].rel = "stylesheet alternate"
     document["stylesheet-dark"].rel = "stylesheet"
@@ -47,6 +51,8 @@ def light_mode(_event):
     document["theme-select"].clear()
     document["theme-select"] <= "light - "
     link = document["theme-select"] <= bh.A("dark", href="javascript:void(0);")
+    link.unbind("click")
+    print("1")
     link.bind("click", dark_mode)
     document["stylesheet"].rel = "stylesheet"
     document["stylesheet-dark"].rel = "stylesheet alternate"
