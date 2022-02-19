@@ -23,7 +23,7 @@ def hide_sidebar(_event):
     document["sidebar-box"].style="display:none;"
     document["hide-sidebar"].unbind("click")
     document["open-sidebar"].bind("click", open_sidebar)
-    document["body"].style="grid-template-columns: 0 1fr min(95vw, 700px) 1fr 0;"
+    document["body"].style="grid-template-columns: 0 1fr min(95vw, 700px) 1fr;"
 
 
 def open_sidebar(_event):
@@ -31,7 +31,7 @@ def open_sidebar(_event):
     document["open-sidebar"].unbind("click")
     document["sidebar-box"].style="display:block;"
     document["hide-sidebar"].bind("click", hide_sidebar)
-    document["body"].style="grid-template-columns: max(25vw, 140px) 1fr min(70vw, 700px) 1fr 0;"
+    document["body"].style="grid-template-columns: max(min(25vw, 300px), 140px) 1fr min(70vw, 700px) 1fr;"
 
 
 def dark_mode(_event):
