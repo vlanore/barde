@@ -18,20 +18,25 @@ STATE = ObjectStorage(storage)
 
 START: Optional[str] = None
 
+
 def hide_sidebar(_event):
-    document["open-sidebar"].style="display:block;"
-    document["sidebar-box"].style="display:none;"
+    document["open-sidebar"].style = "display:block;"
+    document["sidebar-box"].style = "display:none;"
     document["hide-sidebar"].unbind("click")
     document["open-sidebar"].bind("click", open_sidebar)
-    document["body"].style="grid-template-columns: 0 1fr min(95vw, 700px) 1fr;"
+    document["body"].style = "grid-template-columns: 0 1fr min(95vw, 700px) 1fr;"
 
 
 def open_sidebar(_event):
-    document["open-sidebar"].style="display:none;"
+    document["open-sidebar"].style = "display:none;"
     document["open-sidebar"].unbind("click")
-    document["sidebar-box"].style="display:block;"
+    document["sidebar-box"].style = "display:block;"
     document["hide-sidebar"].bind("click", hide_sidebar)
-    document["body"].style="grid-template-columns: max(min(25vw, 300px), 140px) 1fr min(70vw, 700px) 1fr;"
+    document[
+        "body"
+    ].style = (
+        "grid-template-columns: max(min(25vw, 300px), 140px) 1fr min(70vw, 700px) 1fr;"
+    )
 
 
 def dark_mode(_event):
@@ -186,7 +191,14 @@ if __name__ == "__main__":
             f" * Ut enim ad minim veniam: `{STATE['a']}cm`\n"
             " * quis nostrud exercitation ullamco laboris",
         )
-        markdown(" ".join(["uis nostrud exercitation ullamco labori\n "[(i%15):-(i%4)] for i in range(100)]))
+        markdown(
+            " ".join(
+                [
+                    "uis nostrud exercitation ullamco labori\n "[(i % 15) : -(i % 4)]
+                    for i in range(100)
+                ]
+            )
+        )
         html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
         link(tralala)
         link(youpi, "ioupi")
