@@ -1,10 +1,9 @@
 from barde import (
     STATE,
+    display,
     display_sidebar,
-    html,
     image,
     link,
-    markdown,
     passage,
     run,
     title,
@@ -21,15 +20,16 @@ def init():
 @passage
 def hello():
     title("Hello, world")
-    markdown(
+    display(
         "Lorem ipsum **dolor sit amet**, "
         "consectetur adipiscing elit, sed do eiusmod "
         "tempor <b>incididunt</b> ut labore et "
         "dolore magna aliqua.:\n\n"
         f" * Ut enim ad minim veniam: `{STATE['a']}cm`\n"
         " * quis nostrud exercitation ullamco laboris",
+        markdown=True,
     )
-    markdown(
+    display(
         " ".join(
             [
                 "uis nostrud exercitation ullamco labori\n "[(i % 15) : -(i % 4)]
@@ -37,7 +37,7 @@ def hello():
             ]
         )
     )
-    html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
+    display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
     link(tralala)
     link(youpi, "ioupi")
 
@@ -45,7 +45,7 @@ def hello():
 @passage
 def youpi():
     title("Youpi")
-    markdown("youpida")
+    display("youpida")
     image("https://upload.wikimedia.org/wikipedia/commons/8/87/Old_book_bindings.jpg")
 
     STATE["a"] += 1
@@ -56,7 +56,7 @@ def youpi():
 @passage
 def tralala():
     title("Tralala")
-    markdown("trouloulala")
+    display("trouloulala")
     link(youpi)
     link(hello)
 

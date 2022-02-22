@@ -1,9 +1,8 @@
 from .display import (
+    display,
     display_sidebar,
-    html,
     image,
     link,
-    markdown,
     title,
 )
 from .passage import (
@@ -14,11 +13,10 @@ from .passage import (
 
 __all__ = [
     "STATE",
+    "display",
     "display_sidebar",
-    "html",
     "image",
     "link",
-    "markdown",
     "passage",
     "run",
     "title",

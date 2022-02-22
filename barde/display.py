@@ -11,13 +11,12 @@ def clear_page():
     document["main"].clear()
 
 
-def markdown(text) -> None:
-    mark, _ = mk.mark(text)
-    document["main"].html += mark
-
-
-def html(text) -> None:
-    document["main"].html += text
+def display(text, markdown=False) -> None:
+    if markdown:
+        mark, _ = mk.mark(text)
+        document["main"].html += mark
+    else:
+        document["main"].html += text
 
 
 def title(text) -> None:
