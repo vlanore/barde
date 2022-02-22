@@ -11,7 +11,7 @@ def clear_page():
     document["main"].clear()
 
 
-def display(text, markdown=False) -> None:
+def display(text, markdown=True) -> None:
     if markdown:
         mark, _ = mk.mark(text)
         document["main"].html += mark
@@ -23,7 +23,7 @@ def title(text) -> None:
     document["main"] <= bh.H1(text)
 
 
-def display_sidebar(content: str, markdown=False) -> None:
+def display_sidebar(content: str, markdown=True) -> None:
     if markdown:
         mark, _ = mk.mark(content)
         document["sidebar-content"].html += mark
