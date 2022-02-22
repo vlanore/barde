@@ -58,21 +58,16 @@ body {
     opacity: 20%;
 }
 
-#hide-sidebar:hover {
-    opacity: 60%;
-}
-
-#open-sidebar {
-    opacity: 20%;
-}
-
+#hide-sidebar:hover,
 #open-sidebar:hover {
     opacity: 60%;
 }
 
-#sidebar button {
-    padding: 2px 5px 5px 5px;
-    width: 45%;
-    display: inline;
-    margin-bottom: 10px;
+#hide-sidebar,
+#open-sidebar {
+    opacity: 20%;
+}
+
+#sidebar a[role=button] {
+    padding: 2px 7% 5px 7%;
 }
