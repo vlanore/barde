@@ -113,7 +113,18 @@ def restart(_event):
     run()
 
 
+def open_save_menu(_event) -> None:
+    document["save-menu"].showModal()
+
+
+def close_save_menu(_event) -> None:
+    document["save-menu"].close()
+
+
 def run():
+    document["close-save-menu"].bind("click", close_save_menu)
+    document["saves"].bind("click", open_save_menu)
+
     document["hide-sidebar"].bind("click", hide_sidebar)
 
     select_style()
