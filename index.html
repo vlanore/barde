@@ -8,8 +8,6 @@
     <script type="text/python" src="barde/example.py" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
     <link rel="stylesheet" href="web/barde.css">
-    <link id="stylesheet" rel="stylesheet" href="web/light.css">
-    <link id="stylesheet-dark" rel="stylesheet alternate" href="web/dark.css">
 </head>
 
 <body id="body" onload="brython(1)">
@@ -18,12 +16,11 @@
             <div id="hide-sidebar">X</div>
             <p id="sidebar-content"></p>
             <hr />
-            <span id="theme-select"></span><br />
+            <span id="light-mode">light</span> - <span id="dark-mode">dark</span><br />
             <a id="restart" href="javascript:void(0);">restart</a>
         </article>
         <div id="open-sidebar" style="display:none;">☰</div>
     </div>
-    <div id="night-mode"></div>
     <main id="main"></main>
 </body>
 

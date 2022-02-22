@@ -40,29 +40,29 @@ def open_sidebar(_event):
 
 def dark_mode(_event):
     """Toggle on dark mode."""
-    document["theme-select"].clear()
-    link = document["theme-select"] <= bh.A("light", href="javascript:void(0);")
-    document["theme-select"] <= " - dark"
-    link.unbind("click")
-    print("1")
-    link.bind("click", light_mode)
-    document["stylesheet"].rel = "stylesheet alternate"
-    document["stylesheet-dark"].rel = "stylesheet"
+
+    document["dark-mode"].html = "dark"
+    document["dark-mode"].unbind("click")
+
+    document["light-mode"].html = '<a href="javascript:void(0);">light</a>'
+    document["light-mode"].bind("click", light_mode)
+
     document["html"].setAttribute("data-theme", "dark")
+
     STATE["style-mode"] = "dark"
 
 
 def light_mode(_event):
     """Toggle on light mode."""
-    document["theme-select"].clear()
-    document["theme-select"] <= "light - "
-    link = document["theme-select"] <= bh.A("dark", href="javascript:void(0);")
-    link.unbind("click")
-    print("1")
-    link.bind("click", dark_mode)
-    document["stylesheet"].rel = "stylesheet"
-    document["stylesheet-dark"].rel = "stylesheet alternate"
+
+    document["light-mode"].html = "light"
+    document["light-mode"].unbind("click")
+
+    document["dark-mode"].html = '<a href="javascript:void(0);">dark</a>'
+    document["dark-mode"].bind("click", dark_mode)
+
     document["html"].setAttribute("data-theme", "light")
+
     STATE["style-mode"] = "light"
 
 
