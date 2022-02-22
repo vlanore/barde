@@ -1,13 +1,3 @@
-:root,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    --typography-spacing-vertical: 1.5rem;
-}
-
 body {
     grid-template-columns: max(min(25vw, 300px), 140px) 1fr min(70vw, 700px) 1fr 0;
     display: grid;
