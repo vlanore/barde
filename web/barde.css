@@ -41,14 +41,16 @@ body {
     font-size: medium;
 }
 
-#hide-sidebar {
-    position: absolute;
-    top: 54px;
-    right: 31px;
-    opacity: 20%;
+#sidebar nav {
+    margin: -28px -17px 15px -10px;
 }
 
-#hide-sidebar:hover,
+#sidebar nav li {
+    opacity: 20%;
+    padding: 0 10px 0 10px;
+}
+
+#sidebar nav li:hover,
 #open-sidebar:hover {
     opacity: 60%;
 }
