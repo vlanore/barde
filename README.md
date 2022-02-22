@@ -15,22 +15,22 @@ Barde uses [pico.css](https://picocss.com/) for its default CSS.
 ## Example
 Here is an example of a simple Barde application that defines two passages with some formatting and a link between the two:
 ```python
-from barde import passage, markdown, title, link, run
+from barde import passage, display, title, link, run
 
 @passage(start=True)
 def hello():
     title("Hello, world")
-    markdown(
+    display(
         "Lorem ipsum **dolor sit amet**, "
         "consectetur adipiscing elit, sed do eiusmod "
         "tempor incididunt ut labore."
     )
 
-    link("Click me", "world")
+    link(hi, "Click me")
 
 @passage
 def hi():
-    markdown("**Barde** says hi")
+    display("**Barde** says hi")
     
 run()
 ```
