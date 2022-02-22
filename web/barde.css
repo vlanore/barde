@@ -69,3 +69,10 @@ body {
 #open-sidebar:hover {
     opacity: 60%;
 }
+
+#sidebar button {
+    padding: 0;
+    width: 45%;
+    display: inline;
+    margin-bottom: 10px;
+}
