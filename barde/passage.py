@@ -4,7 +4,6 @@ from typing import Callable, Optional
 from browser import (  # type:ignore ; pylint: disable=import-error
     document,
     html as bh,
-    markdown as mk,
 )
 from browser.local_storage import storage  # type:ignore ; pylint: disable=import-error
 from browser.object_storage import (  # type:ignore ; pylint: disable=import-error
@@ -79,10 +78,6 @@ def select_style():
         light_mode(None)
 
 
-def clear_page():
-    document["main"].clear()
-
-
 def passage(*args, **kwargs):
     """Decorator used to define a passage.
 
@@ -112,47 +107,6 @@ def passage(*args, **kwargs):
             sys.exit(1)
 
 
-def markdown(text) -> None:
-    mark, _ = mk.mark(text)
-    document["main"].html += mark
-
-
-def html(text) -> None:
-    document["main"].html += text
-
-
-def title(text) -> None:
-    document["main"] <= bh.H1(text)
-
-
-def display_sidebar(content: str, markdown=False) -> None:
-    if markdown:
-        mark, _ = mk.mark(content)
-        document["sidebar-content"].html += mark
-    else:
-        document["sidebar-content"].html += content
-
-
-def link(target_func: Callable, text: str = "") -> None:
-    target_str = target_func.__name__
-    if text == "":
-        text = target_str
-
-    document["main"] <= bh.A(text, href="javascript:void(0);", id=target_str)
-    document["main"] <= " "
-
-    def result(_, func=target_func):
-        clear_page()
-        STATE["last_passage"] = target_str
-        func()
-
-    document[target_str].bind("click", result)
-
-
-def image(src: str):
-    document["main"] <= bh.IMG(src=src)
-
-
 def restart(_event):
     document["main"].clear()
     document["sidebar-content"].clear()
@@ -170,56 +124,3 @@ def run():
         PASSAGES[STATE["last_passage"]]()
     elif START is not None:
         PASSAGES[START]()
-
-
-if __name__ == "__main__":
-
-    @passage(start=True)
-    def init():
-        STATE["a"] = 1
-        display_sidebar("**Stats**<br/>Strenght: *3*<br/>Dex: *4*", markdown=True)
-        hello()
-
-    @passage
-    def hello():
-        title("Hello, world")
-        markdown(
-            "Lorem ipsum **dolor sit amet**, "
-            "consectetur adipiscing elit, sed do eiusmod "
-            "tempor <b>incididunt</b> ut labore et "
-            "dolore magna aliqua.:\n\n"
-            f" * Ut enim ad minim veniam: `{STATE['a']}cm`\n"
-            " * quis nostrud exercitation ullamco laboris",
-        )
-        markdown(
-            " ".join(
-                [
-                    "uis nostrud exercitation ullamco labori\n "[(i % 15) : -(i % 4)]
-                    for i in range(100)
-                ]
-            )
-        )
-        html(f"<i>Number: </i>{STATE['a']}<br/><br/>")
-        link(tralala)
-        link(youpi, "ioupi")
-
-    @passage
-    def youpi():
-        title("Youpi")
-        markdown("youpida")
-        image(
-            "https://upload.wikimedia.org/wikipedia/commons/8/87/Old_book_bindings.jpg"
-        )
-
-        STATE["a"] += 1
-
-        link(hello)
-
-    @passage
-    def tralala():
-        title("Tralala")
-        markdown("trouloulala")
-        link(youpi)
-        link(hello)
-
-    run()
