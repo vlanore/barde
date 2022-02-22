@@ -108,6 +108,8 @@ def restart(_event):
     document["main"].clear()
     document["sidebar-content"].clear()
     STATE.clear()
+    document["hide-sidebar"].unbind("click")
+    document["restart"].unbind("click")
     run()
 
 
