@@ -38,7 +38,7 @@ def hello():
         )
     )
     display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
-    link(tralala)
+    link(tralala, "tralala")
     link(youpi, "ioupi")
 
 
@@ -50,15 +50,15 @@ def youpi():
 
     STATE["a"] += 1
 
-    link(hello)
+    link(hello, "hello")
 
 
 @passage
 def tralala():
     title("Tralala")
     display("trouloulala")
-    link(youpi)
-    link(hello)
+    link(youpi, "youpi")
+    link(hello, "hello")
 
 
 run()

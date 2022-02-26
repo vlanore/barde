@@ -31,7 +31,7 @@ def display_sidebar(content: str, markdown=True) -> None:
         document["sidebar-content"].html += content
 
 
-def link(target_func: Callable, text: str = "") -> None:
+def link(target_func: Callable, text: str) -> None:
     target_str = target_func.__name__
     if text == "":
         text = target_str
