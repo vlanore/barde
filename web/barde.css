@@ -56,3 +56,12 @@ body {
 #sidebar a[role=button] {
     padding: 2px 7% 5px 7%;
 }
+
+#loading {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+}

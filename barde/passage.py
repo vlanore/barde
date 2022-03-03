@@ -134,3 +134,7 @@ def run():
         PASSAGES[STATE["last_passage"]](body, sidebar)
     elif START is not None:
         PASSAGES[START](body, sidebar)
+
+    document["main"].style = "visibility: visible;"
+    document["sidebar"].style = "visibility: visible;"
+    document["loading"].style = "display: none;"
