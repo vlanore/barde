@@ -119,22 +119,30 @@ def close_save_menu(_event) -> None:
 
 
 def run():
+    # bond save menu and sidebar buttons
     document["close-save-menu"].bind("click", close_save_menu)
     document["saves"].bind("click", open_save_menu)
-
     document["hide-sidebar"].bind("click", hide_sidebar)
-
-    select_style()
     document["restart"].bind("click", restart)
 
+    select_style()
+
+    # start from the last open page, or from scratch
     body = Output(document["main"])
     sidebar = Output(document["sidebar-content"])
-
     if "last_passage" in STATE.keys():
         PASSAGES[STATE["last_passage"]](body, sidebar)
     elif START is not None:
         PASSAGES[START](body, sidebar)
 
+    # remove loading screen and display app
     document["main"].style = "visibility: visible;"
     document["sidebar"].style = "visibility: visible;"
     document["loading"].style = "display: none;"
+
+    # populate loading menu
+    for i in range(5):
+        document["save-menu-list"].html += (
+            f'<tr> <th scope="row">{i + 1}</th> <td> ___ </td> <td> ___ </td> '
+            '<td> <a href="#">Save</a> - <a href="#">Load</a> </td> </tr>'
+        )
