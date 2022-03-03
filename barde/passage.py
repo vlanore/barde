@@ -2,15 +2,12 @@ import sys
 from typing import Callable, Optional
 
 from browser import document  # type:ignore ; pylint: disable=import-error
-from browser.local_storage import storage  # type:ignore ; pylint: disable=import-error
-from browser.object_storage import (  # type:ignore ; pylint: disable=import-error
-    ObjectStorage,
-)
+from barde.display import Output
+from barde.state import STATE
 
 
 PASSAGES = {}
 
-STATE = ObjectStorage(storage)
 
 START: Optional[str] = None
 
@@ -130,7 +127,10 @@ def run():
     select_style()
     document["restart"].bind("click", restart)
 
+    body = Output(document["main"])
+    sidebar = Output(document["sidebar-content"])
+
     if "last_passage" in STATE.keys():
-        PASSAGES[STATE["last_passage"]]()
+        PASSAGES[STATE["last_passage"]](body, sidebar)
     elif START is not None:
-        PASSAGES[START]()
+        PASSAGES[START](body, sidebar)

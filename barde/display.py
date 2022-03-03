@@ -4,48 +4,40 @@ from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
-from barde.passage import STATE
+from barde.state import STATE
 
 
-def clear_page():
-    document["main"].clear()
+class Output:
+    def __init__(self, target) -> None:
+        self.target = target
 
+    def clear_page(self):
+        self.target.clear()
 
-def display(text, markdown=True) -> None:
-    if markdown:
-        mark, _ = mk.mark(text)
-        document["main"].html += mark
-    else:
-        document["main"].html += text
+    def display(self, text, markdown=True) -> None:
+        if markdown:
+            mark, _ = mk.mark(text)
+            self.target.html += mark
+        else:
+            self.target.html += text
 
+    def title(self, text) -> None:
+        self.target <= bh.H1(text)
 
-def title(text) -> None:
-    document["main"] <= bh.H1(text)
+    def link(self, target_func: Callable, text: str) -> None:
+        target_str = target_func.__name__
+        if text == "":
+            text = target_str
 
+        self.target <= bh.A(text, href="javascript:void(0);", id=target_str)
+        self.target <= " "
 
-def display_sidebar(content: str, markdown=True) -> None:
-    if markdown:
-        mark, _ = mk.mark(content)
-        document["sidebar-content"].html += mark
-    else:
-        document["sidebar-content"].html += content
+        def result(_, func=target_func, ref=self):
+            ref.clear_page()
+            STATE["last_passage"] = target_str
+            func(Output(document["main"]), Output(document["sidebar-content"]))
 
+        document[target_str].bind("click", result)
 
-def link(target_func: Callable, text: str) -> None:
-    target_str = target_func.__name__
-    if text == "":
-        text = target_str
-
-    document["main"] <= bh.A(text, href="javascript:void(0);", id=target_str)
-    document["main"] <= " "
-
-    def result(_, func=target_func):
-        clear_page()
-        STATE["last_passage"] = target_str
-        func()
-
-    document[target_str].bind("click", result)
-
-
-def image(src: str):
-    document["main"] <= bh.IMG(src=src)
+    def image(self, src: str):
+        self.target <= bh.IMG(src=src)

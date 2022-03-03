@@ -1,27 +1,22 @@
 from barde import (
     STATE,
-    display,
-    display_sidebar,
-    image,
-    link,
     passage,
     run,
-    title,
+    Output,
 )
 
 
 @passage(start=True)
-def init():
+def init(body: Output, sidebar: Output):
     STATE["a"] = 1
-    display_sidebar("**Stats**<br/>Strenght: *3*<br/>Dex: *4*", markdown=True)
-    hello()
+    sidebar.display("**Stats**<br/>Strenght: *3*<br/>Dex: *4*", markdown=True)
+    hello(body, sidebar)
 
 
 @passage
-def hello():
-    print("yo")
-    title("Hello, world")
-    display(
+def hello(body: Output, _sidebar: Output):
+    body.title("Hello, world")
+    body.display(
         "Lorem ipsum **dolor sit amet**, "
         "consectetur adipiscing elit, sed do eiusmod "
         "tempor <b>incididunt</b> ut labore et "
@@ -30,7 +25,7 @@ def hello():
         " * quis nostrud exercitation ullamco laboris",
         markdown=True,
     )
-    display(
+    body.display(
         "Aliquam pretium libero vel orci viverra, ac viverra tellus tempus. Vestibulum "
         "in condimentum felis. Donec dapibus velit ac ligula congue aliquet. Maecenas"
         " lorem est, tempus ut felis ac, molestie euismod nibh. Morbi id neque ut odio"
@@ -70,28 +65,30 @@ def hello():
         "tempor magna justo, eget maximus odio egestas vel.",
         markdown=False,
     )
-    display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
-    link(tralala, "tralala")
-    link(youpi, "ioupi")
+    body.display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
+    body.link(tralala, "tralala")
+    body.link(youpi, "ioupi")
 
 
 @passage
-def youpi():
-    title("Youpi")
-    display("youpida")
-    image("https://upload.wikimedia.org/wikipedia/commons/8/87/Old_book_bindings.jpg")
+def youpi(body: Output, _sidebar: Output):
+    body.title("Youpi")
+    body.display("youpida")
+    body.image(
+        "https://upload.wikimedia.org/wikipedia/commons/8/87/Old_book_bindings.jpg"
+    )
 
     STATE["a"] += 1
 
-    link(hello, "hello")
+    body.link(hello, "hello")
 
 
 @passage
-def tralala():
-    title("Tralala")
-    display("trouloulala")
-    link(youpi, "youpi")
-    link(hello, "hello")
+def tralala(body: Output, _sidebar: Output):
+    body.title("Tralala")
+    body.display("trouloulala")
+    body.link(youpi, "youpi")
+    body.link(hello, "hello")
 
 
 run()
