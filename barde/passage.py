@@ -1,7 +1,9 @@
 import sys
+import datetime
 from typing import Callable, Optional
 
 from browser import document  # type:ignore ; pylint: disable=import-error
+from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from barde.display import Output
 from barde.state import STATE
 
@@ -118,6 +120,33 @@ def close_save_menu(_event) -> None:
     document["save-menu"].close()
 
 
+def render_save_list() -> None:
+    document["save-menu-list"].clear()
+    for i in range(5):
+        if f"save__{i}__savetime" in STATE.keys():
+            savetime: str = STATE[f"save__{i}__savetime"]
+        else:
+            savetime: str = " ___ "
+
+        save_block = document["save-menu-list"] <= bh.TR()
+        save_block <= bh.TH(i + 1, scope="row") + bh.TD(savetime) + bh.TD(" ___ ")
+
+        save_block <= bh.TD() <= bh.A(
+            "Save", href="javascript:void(0);", id=f"save_slot_{i}"
+        ) + " - " + bh.A("Load", href="javascript:void(0);", id=f"load_slot_{i}")
+
+        document[f"save_slot_{i}"].bind("click", lambda _, nb=i: save_to(nb))
+
+
+def save_to(slot: int) -> None:
+    print("SAVE", slot)
+    STATE[f"save__{slot}__savetime"] = str(datetime.datetime.now())
+    for key, value in STATE.items():
+        if "save__" not in key:
+            STATE[f"save__{slot}__{key}"] = value
+    render_save_list()
+
+
 def run():
     # bond save menu and sidebar buttons
     document["close-save-menu"].bind("click", close_save_menu)
@@ -141,8 +170,4 @@ def run():
     document["loading"].style = "display: none;"
 
     # populate loading menu
-    for i in range(5):
-        document["save-menu-list"].html += (
-            f'<tr> <th scope="row">{i + 1}</th> <td> ___ </td> <td> ___ </td> '
-            '<td> <a href="#">Save</a> - <a href="#">Load</a> </td> </tr>'
-        )
+    render_save_list()
