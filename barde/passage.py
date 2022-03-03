@@ -137,14 +137,25 @@ def render_save_list() -> None:
 
         save_block <= bh.TD() <= bh.A(
             "Save", href="javascript:void(0);", id=f"save_slot_{i}"
-        ) + " - " + bh.A("Load", href="javascript:void(0);", id=f"load_slot_{i}")
+        ) + " - " + bh.A(
+            "Load", href="javascript:void(0);", id=f"load_slot_{i}"
+        ) + " - " + bh.A(
+            "Clear", href="javascript:void(0);", id=f"clear_slot_{i}"
+        )
 
         document[f"save_slot_{i}"].bind("click", lambda _, nb=i: save_to(nb))
         document[f"load_slot_{i}"].bind("click", lambda _, nb=i: load_from(nb))
+        document[f"clear_slot_{i}"].bind("click", lambda _, nb=i: clear_slot(nb))
+
+
+def clear_slot(slot: int) -> None:
+    for key in STATE.keys():
+        if f"save__{slot}__" in key:
+            STATE.pop(key)
+    render_save_list()
 
 
 def save_to(slot: int) -> None:
-    print("SAVE", slot)
     STATE[f"save__{slot}__savetime"] = str(datetime.datetime.now())
     for key, value in STATE.items():
         if "save__" not in key:
