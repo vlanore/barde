@@ -106,7 +106,11 @@ def passage(*args, **kwargs):
 def restart(_event):
     document["main"].clear()
     document["sidebar-content"].clear()
-    STATE.clear()
+
+    for key in STATE.keys():
+        if "save__" not in key:
+            STATE.pop(key)
+
     document["hide-sidebar"].unbind("click")
     document["restart"].unbind("click")
     run()
@@ -136,6 +140,7 @@ def render_save_list() -> None:
         ) + " - " + bh.A("Load", href="javascript:void(0);", id=f"load_slot_{i}")
 
         document[f"save_slot_{i}"].bind("click", lambda _, nb=i: save_to(nb))
+        document[f"load_slot_{i}"].bind("click", lambda _, nb=i: load_from(nb))
 
 
 def save_to(slot: int) -> None:
@@ -145,6 +150,26 @@ def save_to(slot: int) -> None:
         if "save__" not in key:
             STATE[f"save__{slot}__{key}"] = value
     render_save_list()
+
+
+def load_from(slot: int) -> None:
+    document["main"].clear()
+    document["sidebar-content"].clear()
+
+    for key in STATE.keys():
+        if "save__" not in key:
+            STATE.pop(key)
+
+    document["hide-sidebar"].unbind("click")
+    document["restart"].unbind("click")
+
+    for key, value in STATE.items():
+        if f"save__{slot}" in key:
+            name = key.split("__")[2]
+            STATE[name] = value
+
+    run()
+    close_save_menu(None)
 
 
 def run():
