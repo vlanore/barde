@@ -32,8 +32,10 @@ class Output:
         self.target <= bh.A(text, href="javascript:void(0);", id=target_str)
         self.target <= " "
 
-        def result(_, func=target_func, ref=self):
-            ref.clear_page()
+        def result(_, func=target_func):
+            document["main"].clear()
+            document["sidebar-content"].clear()
+
             STATE["last_passage"] = target_str
             func(Output(document["main"]), Output(document["sidebar-content"]))
 

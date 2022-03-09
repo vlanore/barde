@@ -6,15 +6,21 @@ from barde import (
 )
 
 
+def my_sidebar(sidebar: Output):
+    sidebar.display("**Stats**<br/>Strenght: *3*<br/>Dex: *4*", markdown=True)
+    sidebar.link(hello, "Hello")
+
+
 @passage(start=True)
 def init(body: Output, sidebar: Output):
     STATE["a"] = 1
-    sidebar.display("**Stats**<br/>Strenght: *3*<br/>Dex: *4*", markdown=True)
     hello(body, sidebar)
 
 
 @passage
-def hello(body: Output, _sidebar: Output):
+def hello(body: Output, sidebar: Output):
+    my_sidebar(sidebar)
+
     body.title("Hello, world")
     body.display(
         "Lorem ipsum **dolor sit amet**, "
@@ -71,7 +77,9 @@ def hello(body: Output, _sidebar: Output):
 
 
 @passage
-def youpi(body: Output, _sidebar: Output):
+def youpi(body: Output, sidebar: Output):
+    my_sidebar(sidebar)
+
     body.title("Youpi")
     body.display("youpida")
     body.image(
@@ -84,7 +92,9 @@ def youpi(body: Output, _sidebar: Output):
 
 
 @passage
-def tralala(body: Output, _sidebar: Output):
+def tralala(body: Output, sidebar: Output):
+    my_sidebar(sidebar)
+
     body.title("Tralala")
     body.display("trouloulala")
     body.link(youpi, "youpi")
