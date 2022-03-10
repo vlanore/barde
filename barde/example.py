@@ -73,20 +73,21 @@ def hello(body: Output, sidebar: Output):
     )
     body.display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
     body.link(tralala, "tralala")
-    body.link(youpi, "ioupi")
+    body.link(youpi, "ioupi 2", param=2)
+    body.link(youpi, "ioupi 3", param=3)
 
 
 @passage
-def youpi(body: Output, sidebar: Output):
+def youpi(body: Output, sidebar: Output, param: int):
     my_sidebar(sidebar)
 
     body.title("Youpi")
-    body.display("youpida")
+    body.display(f"youpida, voilà un nombre : {param}")
     body.image(
         "https://upload.wikimedia.org/wikipedia/commons/8/87/Old_book_bindings.jpg"
     )
 
-    STATE["a"] += 1
+    STATE["a"] += param
 
     body.link(hello, "hello")
 
