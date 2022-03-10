@@ -98,7 +98,7 @@ def tralala(body: Output, sidebar: Output):
 
     body.title("Tralala")
     body.display("trouloulala")
-    body.link(youpi, "youpi")
+    body.link(youpi, "youpi", param=2)
     body.link(hello, "hello")
 
 

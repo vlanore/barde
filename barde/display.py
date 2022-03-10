@@ -38,6 +38,7 @@ class Output:
             document["sidebar-content"].clear()
 
             STATE["last_passage"] = target_str
+            STATE["last_passage_args"] = kwargs
             func(
                 Output(document["main"]),
                 Output(document["sidebar-content"]),

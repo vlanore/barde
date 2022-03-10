@@ -196,7 +196,7 @@ def run():
     body = Output(document["main"])
     sidebar = Output(document["sidebar-content"])
     if "last_passage" in STATE.keys():
-        PASSAGES[STATE["last_passage"]](body, sidebar)
+        PASSAGES[STATE["last_passage"]](body, sidebar, **STATE["last_passage_args"])
     elif START is not None:
         PASSAGES[START](body, sidebar)
 
