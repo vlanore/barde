@@ -24,7 +24,7 @@ class Output:
     def title(self, text) -> None:
         self.target <= bh.H1(text)
 
-    def link(self, target_func: Callable, text: str) -> None:
+    def link(self, target_func: Callable, text: str, **kwargs) -> None:
         target_str = target_func.__name__
         if text == "":
             text = target_str
@@ -32,14 +32,20 @@ class Output:
         self.target <= bh.A(text, href="javascript:void(0);", id=target_str)
         self.target <= " "
 
-        def result(_, func=target_func):
+        def result(_, func=target_func, func_args=kwargs.copy()):
+            print("Pouic")
             document["main"].clear()
             document["sidebar-content"].clear()
 
             STATE["last_passage"] = target_str
-            func(Output(document["main"]), Output(document["sidebar-content"]))
+            func(
+                Output(document["main"]),
+                Output(document["sidebar-content"]),
+                **func_args
+            )
 
         document[target_str].bind("click", result)
+        document[target_str].id = ""
 
     def image(self, src: str):
         self.target <= bh.IMG(src=src)
