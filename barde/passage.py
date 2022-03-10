@@ -132,8 +132,13 @@ def render_save_list() -> None:
         else:
             savetime: str = " ___ "
 
+        if f"save__{i}__name" in STATE.keys():
+            name: str = STATE[f"save__{i}__name"]
+        else:
+            name: str = " ___ "
+
         save_block = document["save-menu-list"] <= bh.TR()
-        save_block <= bh.TH(i + 1, scope="row") + bh.TD(savetime) + bh.TD(" ___ ")
+        save_block <= bh.TH(i + 1, scope="row") + bh.TD(savetime) + bh.TD(name)
 
         save_block <= bh.TD() <= bh.A(
             "Save", href="javascript:void(0);", id=f"save_slot_{i}"
@@ -157,6 +162,7 @@ def clear_slot(slot: int) -> None:
 
 def save_to(slot: int) -> None:
     STATE[f"save__{slot}__savetime"] = str(datetime.datetime.now())
+    STATE[f"save__{slot}__name"] = STATE["last_passage"]
     for key, value in STATE.items():
         if "save__" not in key:
             STATE[f"save__{slot}__{key}"] = value
