@@ -73,8 +73,8 @@ def hello(body: Output, sidebar: Output):
     )
     body.display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
     body.link(tralala, "tralala")
-    body.link(youpi, "ioupi 2", param=2)
-    body.link(youpi, "ioupi 3", param=3)
+    body.link(youpi, "ioupi 2", lambda: {"param": 2})
+    body.link(youpi, "ioupi 3", lambda: {"param": 3})
 
 
 @passage
@@ -98,8 +98,10 @@ def tralala(body: Output, sidebar: Output):
 
     body.title("Tralala")
     body.display("trouloulala")
-    body.link(youpi, "youpi", param=2)
     body.link(hello, "hello")
+
+    my_input = body.text_input()
+    body.link(youpi, "youpi", lambda: {"param": int(my_input())})
 
 
 run()

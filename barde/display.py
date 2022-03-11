@@ -7,6 +7,9 @@ from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 from barde.state import STATE
 
 
+NEXT_ID = 0
+
+
 class Output:
     def __init__(self, target) -> None:
         self.target = target
@@ -24,7 +27,9 @@ class Output:
     def title(self, text) -> None:
         self.target <= bh.H1(text)
 
-    def link(self, target_func: Callable, text: str, **kwargs) -> None:
+    def link(
+        self, target_func: Callable, text: str, arg_func: Callable = lambda: {}
+    ) -> None:
         target_str = target_func.__name__
         if text == "":
             text = target_str
@@ -32,7 +37,9 @@ class Output:
         self.target <= bh.A(text, href="javascript:void(0);", id=target_str)
         self.target <= " "
 
-        def result(_, func=target_func, func_args=kwargs.copy()):
+        def result(_, func=target_func, arg_func=arg_func) -> None:
+            kwargs = arg_func()
+
             print("Pouic")
             document["main"].clear()
             document["sidebar-content"].clear()
@@ -42,11 +49,20 @@ class Output:
             func(
                 Output(document["main"]),
                 Output(document["sidebar-content"]),
-                **func_args
+                **kwargs,
             )
 
         document[target_str].bind("click", result)
         document[target_str].id = ""
 
-    def image(self, src: str):
+    def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
+
+    def text_input(self):
+        global NEXT_ID
+        my_id = NEXT_ID
+        NEXT_ID += 1
+
+        self.target <= bh.INPUT(type="text", id=f"id_{my_id}")
+
+        return lambda: document[f"id_{my_id}"].value
