@@ -104,7 +104,7 @@ def tralala(body: Output, sidebar: Output, txt: str = "hello"):
     body.display(txt)
     body.link(hello, "hello")
 
-    my_input = body.text_input()
+    my_input = body.int_input("How many youpis?")
     body.link(youpi, "youpi", param=lambda: int(my_input()))
 
 

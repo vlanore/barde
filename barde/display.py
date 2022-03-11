@@ -67,14 +67,23 @@ class Output:
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
 
-    def text_input(self):
+    def text_input(self, label: str = "") -> Callable:
         my_id = get_id()
 
-        self.target <= bh.INPUT(type="text", id=my_id)
+        self.target <= bh.LABEL(label) <= bh.INPUT(type="text", id=my_id)
 
         return lambda: document[my_id].value
 
-    def radio_buttons(self, choices: list[str]):
+    def int_input(self, label: str = "", default: int = 0) -> Callable:
+        my_id = get_id()
+
+        self.target <= bh.LABEL(label) <= bh.INPUT(
+            value=default, type="number", id=my_id
+        )
+
+        return lambda: document[my_id].value
+
+    def radio_buttons(self, choices: list[str]) -> Callable:
         name = get_id()
 
         fieldset = self.target <= bh.FIELDSET()
