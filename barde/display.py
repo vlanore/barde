@@ -73,3 +73,16 @@ class Output:
         self.target <= bh.INPUT(type="text", id=my_id)
 
         return lambda: document[my_id].value
+
+    def radio_buttons(self, choices: list[str]):
+        name = get_id()
+
+        fieldset = self.target <= bh.FIELDSET()
+        for choice in choices:
+            fieldset <= bh.LABEL() <= bh.INPUT(
+                type="radio", name=name, value=choice
+            ) + choice
+
+        self.target.select_one(f"input[name='{name}']").checked = "checked"
+
+        return lambda: document.select_one(f"input[name='{name}']:checked").value

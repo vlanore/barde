@@ -76,6 +76,10 @@ def hello(body: Output, sidebar: Output):
     body.link(youpi, "ioupi 2", param=2)
     body.link(youpi, "ioupi 3", param=3)
 
+    body.display("<p/>")
+    selection = body.radio_buttons(["hi", "world"])
+    body.link(tralala, "tralala", txt=selection)
+
 
 @passage
 def youpi(body: Output, sidebar: Output, param: int):
@@ -93,11 +97,11 @@ def youpi(body: Output, sidebar: Output, param: int):
 
 
 @passage
-def tralala(body: Output, sidebar: Output):
+def tralala(body: Output, sidebar: Output, txt: str = "hello"):
     my_sidebar(sidebar)
 
     body.title("Tralala")
-    body.display("trouloulala")
+    body.display(txt)
     body.link(hello, "hello")
 
     my_input = body.text_input()
