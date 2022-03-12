@@ -82,7 +82,8 @@ class Output:
             self.target <= bh.P()
             self.target.children[-1].html = html
         else:
-            self.target.html += html
+            self.target <= bh.SPAN()
+            self.target.children[-1].html = html
 
     def title(self, text) -> None:
         self.target <= bh.H1(text)
