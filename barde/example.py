@@ -69,9 +69,9 @@ def hello(body: Output, sidebar: Output):
         " eget orci magna. Mauris pellentesque nibh at lectus accumsan, nec sodales "
         "augue commodo. Vestibulum eget ante eu ligula cursus faucibus. Integer "
         "tempor magna justo, eget maximus odio egestas vel.",
-        markdown=False,
     )
-    body.display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
+    body.display(f"<i>Number: </i>{STATE['a']}")
+
     body.link(youpi, "ioupi 2", param=2)
     body.link(youpi, "ioupi 3", param=3)
 

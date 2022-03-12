@@ -24,12 +24,19 @@ class Output:
     def clear_page(self):
         self.target.clear()
 
-    def display(self, text, markdown=True) -> None:
+    def display(
+        self, text: str, markdown: bool = False, paragraph: bool = True
+    ) -> None:
         if markdown:
             mark, _ = mk.mark(text)
-            self.target.html += mark
+            html = mark
         else:
-            self.target.html += text
+            html = text
+        if paragraph:
+            self.target <= bh.P()
+            self.target.children[-1].html = html
+        else:
+            self.target.html += html
 
     def title(self, text) -> None:
         self.target <= bh.H1(text)
