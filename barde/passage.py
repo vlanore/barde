@@ -213,10 +213,10 @@ def run():
 
     # start from the last open page, or from scratch
     if "last_passage" in STATE.keys():
-        call_passage(PASSAGES[STATE["last_passage"]], STATE["last_passage_args"])
+        call_passage(PASSAGES[STATE["last_passage"]], **STATE["last_passage_args"])
 
     elif START is not None:
-        call_passage(PASSAGES[START], {})
+        call_passage(PASSAGES[START])
 
     # remove loading screen and display app
     document["main"].style = "visibility: visible;"

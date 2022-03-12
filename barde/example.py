@@ -4,6 +4,7 @@ from barde import (
     run,
     Output,
 )
+from barde.display import call_passage
 
 
 def my_sidebar(sidebar: Output):
@@ -76,7 +77,7 @@ def hello(body: Output, sidebar: Output):
     body.link(youpi, "ioupi 3", param=3)
 
     selection = body.radio_buttons(["hi", "world"])
-    body.link(tralala, "tralala", txt=selection)
+    body.action_link(lambda: call_passage(tralala, txt=selection()), "tralala")
 
 
 @passage
@@ -103,7 +104,7 @@ def tralala(body: Output, sidebar: Output, txt: str = "hello"):
     body.link(hello, "hello")
 
     my_input = body.int_input("How many youpis?")
-    body.link(youpi, "youpi", param=lambda: int(my_input()))
+    body.action_link(lambda: call_passage(youpi, param=my_input()), "youpi")
 
 
 run()

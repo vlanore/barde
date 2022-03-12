@@ -9,7 +9,7 @@ from barde.state import STATE
 NEXT_ID = 0
 
 
-def call_passage(passage: Callable, params: dict[str, Any]) -> None:
+def call_passage(passage: Callable, **params: dict[str, Any]) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
@@ -65,13 +65,17 @@ class Output:
         def result(
             _, func=target_func, func_args: dict[str, Any] = kwargs.copy()
         ) -> None:
-            for key, value in func_args.items():
-                if callable(value):
-                    func_args[key] = value()
-
-            call_passage(func, func_args)
+            call_passage(func, **func_args)
 
         document[my_id].bind("click", result)
+
+    def action_link(self, func: Callable, text: str, **kwargs) -> None:
+        my_id = get_id()
+
+        self.target <= bh.A(text, href="javascript:void(0);", id=my_id)
+        self.target <= " "
+
+        document[my_id].bind("click", lambda _, args=kwargs.copy(): func(**args))
 
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
@@ -90,7 +94,7 @@ class Output:
             value=default, type="number", id=my_id
         )
 
-        return lambda: document[my_id].value
+        return lambda: int(document[my_id].value)
 
     def radio_buttons(self, choices: list[str]) -> Callable:
         name = get_id()
