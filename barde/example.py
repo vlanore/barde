@@ -103,7 +103,13 @@ def tralala(body: Output, sidebar: Output, txt: str = "hello"):
     body.display(txt)
     body.link(hello, "hello")
 
-    my_input = body.int_input("How many youpis?")
+    info = body.dynamic_info("0 youpis")
+    my_input = None
+
+    def update_info(_):
+        info.set(f"{my_input()} youpis")
+
+    my_input = body.int_input("How many youpis?", on_change=update_info)
     body.action_link(lambda: call_passage(youpi, param=my_input()), "youpi")
 
 

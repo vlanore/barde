@@ -22,6 +22,16 @@ def call_passage(passage: Callable, **params: dict[str, Any]) -> None:
     )
 
 
+class DynamicInfo:
+    def __init__(self, my_id: str, text: str = "") -> None:
+        self.my_id = my_id
+        self.set(text)
+
+    def set(self, text: str) -> None:
+        document[self.my_id].clear()
+        document[self.my_id] <= text
+
+
 def get_id() -> str:
     global NEXT_ID
     my_id = NEXT_ID
@@ -80,31 +90,45 @@ class Output:
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
 
-    def text_input(self, label: str = "") -> Callable:
+    def text_input(self, label: str = "", on_change=None) -> Callable:
         my_id = get_id()
 
         self.target <= bh.LABEL(label) <= bh.INPUT(type="text", id=my_id)
 
+        if on_change:
+            document[my_id].bind("input", on_change)
+
         return lambda: document[my_id].value
 
-    def int_input(self, label: str = "", default: int = 0) -> Callable:
+    def int_input(self, label: str = "", default: int = 0, on_change=None) -> Callable:
         my_id = get_id()
 
         self.target <= bh.LABEL(label) <= bh.INPUT(
             value=default, type="number", id=my_id
         )
 
+        if on_change:
+            document[my_id].bind("input", on_change)
+
         return lambda: int(document[my_id].value)
 
-    def radio_buttons(self, choices: list[str]) -> Callable:
-        name = get_id()
+    def radio_buttons(self, choices: list[str], on_change=None) -> Callable:
+        my_id = get_id()
 
         self.target <= bh.FIELDSET()
         for choice in choices:
             self.target.children[-1] <= bh.LABEL() <= bh.INPUT(
-                type="radio", name=name, value=choice
+                type="radio", name=my_id, value=choice
             ) + choice
 
-        self.target.select_one(f"input[name='{name}']").checked = "checked"
+        self.target.select_one(f"input[name='{my_id}']").checked = "checked"
 
-        return lambda: document.select_one(f"input[name='{name}']:checked").value
+        if on_change:
+            document[my_id].bind("input", on_change)
+
+        return lambda: document.select_one(f"input[name='{my_id}']:checked").value
+
+    def dynamic_info(self, text="") -> DynamicInfo:
+        my_id = get_id()
+        self.target <= bh.P(id=my_id)
+        return DynamicInfo(my_id, text)
