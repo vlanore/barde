@@ -32,6 +32,23 @@ class DynamicInfo:
         document[self.my_id] <= text
 
 
+class Input:
+    def __init__(self, my_id: str, convert: Callable = str) -> None:
+        self.my_id = my_id
+        self.convert = convert
+
+    def get(self) -> Any:
+        return self.convert(document[self.my_id].value)
+
+
+class Radio:
+    def __init__(self, my_id: str) -> None:
+        self.my_id = my_id
+
+    def get(self) -> Any:
+        return document.select_one(f"input[name='{self.my_id}']:checked").value
+
+
 def get_id() -> str:
     global NEXT_ID
     my_id = NEXT_ID
@@ -90,7 +107,7 @@ class Output:
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
 
-    def text_input(self, label: str = "", on_change=None) -> Callable:
+    def text_input(self, label: str = "", on_change=None) -> Input:
         my_id = get_id()
 
         self.target <= bh.LABEL(label) <= bh.INPUT(type="text", id=my_id)
@@ -98,9 +115,9 @@ class Output:
         if on_change:
             document[my_id].bind("input", on_change)
 
-        return lambda: document[my_id].value
+        return Input(my_id)
 
-    def int_input(self, label: str = "", default: int = 0, on_change=None) -> Callable:
+    def int_input(self, label: str = "", default: int = 0, on_change=None) -> Input:
         my_id = get_id()
 
         self.target <= bh.LABEL(label) <= bh.INPUT(
@@ -110,9 +127,9 @@ class Output:
         if on_change:
             document[my_id].bind("input", on_change)
 
-        return lambda: int(document[my_id].value)
+        return Input(my_id, int)
 
-    def radio_buttons(self, choices: list[str], on_change=None) -> Callable:
+    def radio_buttons(self, choices: list[str], on_change=None) -> Radio:
         my_id = get_id()
 
         self.target <= bh.FIELDSET()
@@ -126,7 +143,7 @@ class Output:
         if on_change:
             document[my_id].bind("input", on_change)
 
-        return lambda: document.select_one(f"input[name='{my_id}']:checked").value
+        return Radio(my_id)
 
     def dynamic_info(self, text="") -> DynamicInfo:
         my_id = get_id()
