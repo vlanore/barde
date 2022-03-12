@@ -88,13 +88,20 @@ class Output:
     def title(self, text) -> None:
         self.target <= bh.H1(text)
 
-    def link(self, target_func: Callable, text: str, **kwargs) -> None:
+    def link(
+        self, target_func: Callable, text: str, tooltip: str = "", **kwargs
+    ) -> None:
         my_id = get_id()
         target_str = target_func.__name__
         if text == "":
             text = target_str
 
         self.target <= bh.A(text, href="javascript:void(0);", id=my_id)
+
+        if tooltip != "":
+            self.target.children[-1].attrs["class"] = "has-tooltip"
+            self.target.children[-1] <= bh.ARTICLE(tooltip)
+
         self.target <= " "
 
         def result(
@@ -104,10 +111,17 @@ class Output:
 
         document[my_id].bind("click", result)
 
-    def action_link(self, func: Callable, text: str, **kwargs) -> None:
+    def action_link(
+        self, func: Callable, text: str, tooltip: str = "", **kwargs
+    ) -> None:
         my_id = get_id()
 
         self.target <= bh.A(text, href="javascript:void(0);", id=my_id)
+
+        if tooltip != "":
+            self.target.children[-1].attrs["class"] = "has-tooltip"
+            self.target.children[-1] <= bh.ARTICLE(tooltip)
+
         self.target <= " "
 
         document[my_id].bind("click", lambda _, args=kwargs.copy(): func(**args))

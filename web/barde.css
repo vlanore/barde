@@ -69,3 +69,28 @@ body {
 #restart-confirm header {
     margin-bottom: 1rem;
 }
+
+.has-tooltip {
+    display: inline-block;
+    position: relative;
+}
+
+.has-tooltip article {
+    display: none;
+    margin: 0;
+    z-index: 10;
+    padding: 0.5rem;
+    font-size: 80%;
+    color: var(--h5-color);
+    width: min(25vw, 250px);
+}
+
+.has-tooltip:hover article {
+    display: block;
+    position: absolute;
+    bottom: calc(100% + 5px);
+}
+
+span.has-tooltip:hover {
+    cursor: help;
+}

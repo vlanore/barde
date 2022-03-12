@@ -41,7 +41,7 @@ def house(body: Output, sidebar: Output):
     if STATE["oven_is_on"]:
         body.display("The oven is on")
         if STATE["apples"] >= 5:
-            body.action_link(bake_pie, "Bake a pie")
+            body.action_link(bake_pie, "Bake a pie", tooltip="Bake a yummy <b>pie</b>!")
             body.display("<br/>", paragraph=False)
         else:
             body.display("You don't have enough apples to bake a pie!")
@@ -49,9 +49,21 @@ def house(body: Output, sidebar: Output):
         body.display("The oven is off")
 
     if not STATE["oven_is_on"]:
-        body.action_link(turn_oven_on, "Turn on the oven")
+        body.action_link(
+            turn_oven_on,
+            "Turn on the oven",
+            tooltip="Turning on the <b>oven</b> might help with cooking <b>pies</b>.",
+        )
         body.display("<br/>", paragraph=False)
-    body.link(orchard, "Go to the orchard")
+
+    body.link(
+        orchard,
+        "Go to the orchard",
+        tooltip=(
+            "The <b>orchard</b> is a place with big apple trees. "
+            "You might find <b>apples</b> there."
+        ),
+    )
 
 
 @passage
@@ -61,6 +73,11 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
     my_sidebar(sidebar)
 
     body.title("Orchard")
+    body.image(
+        "https://grocycle.com/wp-content/uploads/2020/01/"
+        "What-Is-A-Permaculture-Orchard-1024x400.jpg"
+    )
+
     if new_apples > 0:
         body.display(f"You gather {new_apples} apples")
     else:
@@ -68,10 +85,19 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
 
     nb_apples = body.int_input("How many apples:", 1)
     body.action_link(
-        lambda: call_passage(orchard, new_apples=nb_apples.get()), "Gather!"
+        lambda: call_passage(orchard, new_apples=nb_apples.get()),
+        "Gather!",
+        tooltip="Gather them <b>apples</b>!",
     )
     body.display("<br/>", paragraph=False)
-    body.link(house, "Go to your house")
+    body.link(
+        house,
+        "Go to your house",
+        tooltip=(
+            "Your <b>house</b> is a place with a big <b>oven</b>"
+            " which might be linked to <b>pie</b> cooking"
+        ),
+    )
 
 
 run()
