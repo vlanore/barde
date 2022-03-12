@@ -40,6 +40,9 @@ class Input:
     def get(self) -> Any:
         return self.convert(document[self.my_id].value)
 
+    def on_change(self, func: Callable) -> None:
+        document[self.my_id].bind("input", lambda _, func=func: func())
+
 
 class Radio:
     def __init__(self, my_id: str) -> None:
@@ -47,6 +50,10 @@ class Radio:
 
     def get(self) -> Any:
         return document.select_one(f"input[name='{self.my_id}']:checked").value
+
+    def on_change(self, func: Callable) -> None:
+        for element in document.select(f"input[name='{self.my_id}']"):
+            element.bind("input", lambda _, func=func: func())
 
 
 def get_id() -> str:
@@ -107,29 +114,23 @@ class Output:
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
 
-    def text_input(self, label: str = "", on_change=None) -> Input:
+    def text_input(self, label: str = "") -> Input:
         my_id = get_id()
 
         self.target <= bh.LABEL(label) <= bh.INPUT(type="text", id=my_id)
 
-        if on_change:
-            document[my_id].bind("input", on_change)
-
         return Input(my_id)
 
-    def int_input(self, label: str = "", default: int = 0, on_change=None) -> Input:
+    def int_input(self, label: str = "", default: int = 0) -> Input:
         my_id = get_id()
 
         self.target <= bh.LABEL(label) <= bh.INPUT(
             value=default, type="number", id=my_id
         )
 
-        if on_change:
-            document[my_id].bind("input", on_change)
-
         return Input(my_id, int)
 
-    def radio_buttons(self, choices: list[str], on_change=None) -> Radio:
+    def radio_buttons(self, choices: list[str]) -> Radio:
         my_id = get_id()
 
         self.target <= bh.FIELDSET()
@@ -139,9 +140,6 @@ class Output:
             ) + choice
 
         self.target.select_one(f"input[name='{my_id}']").checked = "checked"
-
-        if on_change:
-            document[my_id].bind("input", on_change)
 
         return Radio(my_id)
 

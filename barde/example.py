@@ -76,7 +76,9 @@ def hello(body: Output, sidebar: Output):
     body.link(youpi, "ioupi 2", param=2)
     body.link(youpi, "ioupi 3", param=3)
 
+    info = body.dynamic_info()
     selection = body.radio_buttons(["hi", "world"])
+    selection.on_change(lambda: info.set(selection.get()))
     body.action_link(lambda: call_passage(tralala, txt=selection.get()), "tralala")
 
 
@@ -104,12 +106,13 @@ def tralala(body: Output, sidebar: Output, txt: str = "hello"):
     body.link(hello, "hello")
 
     info = body.dynamic_info("0 youpis")
-    my_input = None
+    my_input = body.int_input("How many youpis?")
 
-    def update_info(_):
+    def update_info():
         info.set(f"{my_input.get()} youpis")
 
-    my_input = body.int_input("How many youpis?", on_change=update_info)
+    my_input.on_change(update_info)
+
     body.action_link(lambda: call_passage(youpi, param=my_input.get()), "youpi")
 
 
