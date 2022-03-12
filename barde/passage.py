@@ -4,7 +4,7 @@ from typing import Callable, Optional
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
-from barde.display import Output
+from barde.display import call_passage
 from barde.state import STATE
 
 
@@ -212,12 +212,11 @@ def run():
     select_style()
 
     # start from the last open page, or from scratch
-    body = Output(document["main"])
-    sidebar = Output(document["sidebar-content"])
     if "last_passage" in STATE.keys():
-        PASSAGES[STATE["last_passage"]](body, sidebar, **STATE["last_passage_args"])
+        call_passage(PASSAGES[STATE["last_passage"]], STATE["last_passage_args"])
+
     elif START is not None:
-        PASSAGES[START](body, sidebar)
+        call_passage(PASSAGES[START], {})
 
     # remove loading screen and display app
     document["main"].style = "visibility: visible;"

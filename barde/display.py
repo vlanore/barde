@@ -6,8 +6,20 @@ from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
 from barde.state import STATE
 
-
 NEXT_ID = 0
+
+
+def call_passage(passage: Callable, params: dict[str, Any]) -> None:
+    document["main"].clear()
+    document["sidebar-content"].clear()
+
+    STATE["last_passage"] = passage.__name__
+    STATE["last_passage_args"] = params
+    passage(
+        Output(document["main"]),
+        Output(document["sidebar-content"]),
+        **params,
+    )
 
 
 def get_id() -> str:
@@ -57,17 +69,7 @@ class Output:
                 if callable(value):
                     func_args[key] = value()
 
-            print("Pouic")
-            document["main"].clear()
-            document["sidebar-content"].clear()
-
-            STATE["last_passage"] = target_str
-            STATE["last_passage_args"] = func_args
-            func(
-                Output(document["main"]),
-                Output(document["sidebar-content"]),
-                **func_args,
-            )
+            call_passage(func, func_args)
 
         document[my_id].bind("click", result)
 
