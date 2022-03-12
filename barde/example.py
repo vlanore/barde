@@ -72,11 +72,9 @@ def hello(body: Output, sidebar: Output):
         markdown=False,
     )
     body.display(f"<i>Number: </i>{STATE['a']}<br/><br/>")
-    body.link(tralala, "tralala")
     body.link(youpi, "ioupi 2", param=2)
     body.link(youpi, "ioupi 3", param=3)
 
-    body.display("<p/>")
     selection = body.radio_buttons(["hi", "world"])
     body.link(tralala, "tralala", txt=selection)
 

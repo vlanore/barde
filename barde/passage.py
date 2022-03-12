@@ -103,6 +103,14 @@ def passage(*args, **kwargs):
             sys.exit(1)
 
 
+def open_restart_confirm(_event) -> None:
+    document["restart-confirm"].showModal()
+
+
+def close_restart_confirm(_event) -> None:
+    document["restart-confirm"].close()
+
+
 def restart(_event):
     document["main"].clear()
     document["sidebar-content"].clear()
@@ -114,6 +122,7 @@ def restart(_event):
     document["hide-sidebar"].unbind("click")
     document["restart"].unbind("click")
     run()
+    close_restart_confirm(None)
 
 
 def open_save_menu(_event) -> None:
@@ -194,7 +203,11 @@ def run():
     document["close-save-menu"].bind("click", close_save_menu)
     document["saves"].bind("click", open_save_menu)
     document["hide-sidebar"].bind("click", hide_sidebar)
-    document["restart"].bind("click", restart)
+
+    # restart
+    document["restart"].bind("click", open_restart_confirm)
+    document["restart-yes"].bind("click", restart)
+    document["restart-no"].bind("click", close_restart_confirm)
 
     select_style()
 

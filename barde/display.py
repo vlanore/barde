@@ -35,11 +35,12 @@ class Output:
         self.target <= bh.H1(text)
 
     def link(self, target_func: Callable, text: str, **kwargs) -> None:
+        my_id = get_id()
         target_str = target_func.__name__
         if text == "":
             text = target_str
 
-        self.target <= bh.A(text, href="javascript:void(0);", id=target_str)
+        self.target <= bh.A(text, href="javascript:void(0);", id=my_id)
         self.target <= " "
 
         def result(
@@ -61,8 +62,7 @@ class Output:
                 **func_args,
             )
 
-        document[target_str].bind("click", result)
-        document[target_str].id = ""
+        document[my_id].bind("click", result)
 
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
@@ -86,9 +86,9 @@ class Output:
     def radio_buttons(self, choices: list[str]) -> Callable:
         name = get_id()
 
-        fieldset = self.target <= bh.FIELDSET()
+        self.target <= bh.FIELDSET()
         for choice in choices:
-            fieldset <= bh.LABEL() <= bh.INPUT(
+            self.target.children[-1] <= bh.LABEL() <= bh.INPUT(
                 type="radio", name=name, value=choice
             ) + choice
 
