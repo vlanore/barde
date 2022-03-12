@@ -6,7 +6,7 @@
     <script type="text/javascript" src="web/brython.js"></script>
     <script type="text/javascript" src="web/brython_stdlib.js"></script>
     <script type="text/python" src="barde/example.py" defer></script>
-    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <link rel="stylesheet" href="web/barde.css">
 </head>
 
@@ -59,10 +59,11 @@
 
     <dialog id="restart-confirm" close>
         <article>
-            <p>Are you sure you want to restart?</p>
-            <p>
-                <a role="button" id="restart-yes" href="javascript:void(0);">Yes</a>
-                <a role="button" id="restart-no" href="javascript:void(0);">No</a>
+            <header>Restart confirmation</header>
+            <p>Are you sure you want to restart?<br />You will lose your current progress.</p>
+            <p style="text-align:right;">
+                <a role="button" id="restart-yes" href="javascript:void(0);">Restart</a>
+                <a role="button" id="restart-no" href="javascript:void(0);" class="secondary">Cancel</a>
             </p>
         </article>
     </dialog>

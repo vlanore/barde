@@ -65,3 +65,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+#restart-confirm header {
+    margin-bottom: 1rem;
+}
