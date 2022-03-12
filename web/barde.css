@@ -66,8 +66,9 @@ body {
     justify-content: center;
 }
 
-#restart-confirm header {
-    margin-bottom: 1rem;
+#restart-confirm article {
+    padding: 2rem;
+    padding-bottom: 1.25rem;
 }
 
 .has-tooltip {
@@ -79,16 +80,21 @@ body {
     display: none;
     margin: 0;
     z-index: 10;
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-size: 80%;
-    color: var(--h5-color);
+    color: var(--contrast);
     width: min(25vw, 250px);
+    transform: translate(0, -0.25rem);
+    margin-left: calc(50% - 0.5 * min(25vw, 250px));
+    text-align: center;
+    pointer-events: none;
+    opacity: 0.95;
 }
 
 .has-tooltip:hover article {
     display: block;
     position: absolute;
-    bottom: calc(100% + 5px);
+    bottom: 100%;
 }
 
 span.has-tooltip:hover {

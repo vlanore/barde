@@ -11,7 +11,7 @@
 </head>
 
 <body id="body" onload="brython(1)">
-    <div id="loading">
+    <div id="loading" aria-busy="true">
         Loading...
     </div>
 
@@ -59,11 +59,10 @@
 
     <dialog id="restart-confirm" close>
         <article>
-            <header>Restart confirmation</header>
             <p>Are you sure you want to restart?<br />You will lose your current progress.</p>
-            <p style="text-align:right;">
-                <a role="button" id="restart-yes" href="javascript:void(0);">Restart</a>
-                <a role="button" id="restart-no" href="javascript:void(0);" class="secondary">Cancel</a>
+            <p class="grid">
+                <button id="restart-yes" href="javascript:void(0);">Restart</button>
+                <button id="restart-no" href="javascript:void(0);" class="secondary">Cancel</button>
             </p>
         </article>
     </dialog>

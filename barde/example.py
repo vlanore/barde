@@ -17,9 +17,10 @@ def init(_body: Output, _sidebar: Output):
 
 
 def my_sidebar(sidebar: Output) -> None:
-    sidebar.display("You have:")
-    sidebar.display(f"{STATE['apples']} apples")
-    sidebar.display(f"{STATE['pies']} pies")
+    sidebar.display(
+        f"**Inventory**\n\n `{STATE['apples']}` apples<br/>`{STATE['pies']}` pies",
+        markdown=True,
+    )
 
 
 @passage
@@ -42,7 +43,7 @@ def house(body: Output, sidebar: Output):
         body.display("The oven is on")
         if STATE["apples"] >= 5:
             body.action_link(bake_pie, "Bake a pie", tooltip="Bake a yummy <b>pie</b>!")
-            body.display("<br/>", paragraph=False)
+            body.display(" - ", paragraph=False)
         else:
             body.display("You don't have enough apples to bake a pie!")
     else:
@@ -54,7 +55,7 @@ def house(body: Output, sidebar: Output):
             "Turn on the oven",
             tooltip="Turning on the <b>oven</b> might help with cooking <b>pies</b>.",
         )
-        body.display("<br/>", paragraph=False)
+        body.display(" - ", paragraph=False)
 
     body.link(
         orchard,
@@ -89,7 +90,7 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
         "Gather!",
         tooltip="Gather them <b>apples</b>!",
     )
-    body.display("<br/>", paragraph=False)
+    body.display(" - ", paragraph=False)
     body.link(
         house,
         "Go to your house",
