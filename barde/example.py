@@ -18,7 +18,7 @@ def init(_body: Output, _sidebar: Output):
 
 def my_sidebar(sidebar: Output) -> None:
     sidebar.display(
-        f"**Inventory**\n\n `{STATE['apples']}` apples<br/>`{STATE['pies']}` pies",
+        f"##### Inventory\n `{STATE['apples']}` apples<br/>`{STATE['pies']}` pies",
         markdown=True,
     )
 
@@ -92,7 +92,6 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
     if new_apples > 0:
         body.display(
             f"You gather {new_apples} |apples|",
-            paragraph=False,
             tooltips=["It's a fruit used to make <b>pies</b>"],
         )
     else:
