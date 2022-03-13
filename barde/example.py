@@ -66,6 +66,16 @@ def house(body: Output, sidebar: Output):
         ),
     )
 
+    body.display("<hr/>")
+    body.radio_buttons(
+        ["pie cooking mode", "cookie cooking mode", "special mode"],
+        tooltips=[
+            "To bake delicious apple pies",
+            "To bake wonderful cookies",
+            "A mysterious mode for the adventurous cook",
+        ],
+    )
+
 
 @passage
 def orchard(body: Output, sidebar: Output, new_apples: int = 0):

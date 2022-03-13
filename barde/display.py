@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
@@ -152,14 +152,24 @@ class Output:
 
         return Input(my_id, int)
 
-    def radio_buttons(self, choices: list[str]) -> Radio:
+    def radio_buttons(self, choices: list[str], tooltips=None) -> Radio:
+        if tooltips is not None:
+            assert len(tooltips) == len(choices), "Provide one tooltip per choice"
+
         my_id = get_id()
 
         self.target <= bh.FIELDSET()
-        for choice in choices:
-            self.target.children[-1] <= bh.LABEL() <= bh.INPUT(
+        for i, choice in enumerate(choices):
+            fieldset = self.target.children[-1]
+            fieldset <= bh.LABEL() <= bh.INPUT(
                 type="radio", name=my_id, value=choice
-            ) + choice
+            ) + bh.SPAN(choice)
+
+            if tooltips is not None:
+                tooltip: str = tooltips[i]
+                label_span = fieldset.children[-1].children[-1]
+                label_span.attrs["class"] = "has-tooltip"
+                label_span <= bh.ARTICLE(tooltip)
 
         self.target.select_one(f"input[name='{my_id}']").checked = "checked"
 
