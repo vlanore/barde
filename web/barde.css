@@ -25,7 +25,8 @@ body {
 }
 
 #sidebar p,
-#sidebar a {
+#sidebar a,
+#sidebar span {
     font-size: calc(0.85 * var(--font-size));
 }
 
@@ -33,6 +34,7 @@ body {
     margin: 0;
     height: 100%;
     margin-left: -20px;
+    position: relative;
 }
 
 #sidebar nav {
@@ -53,8 +55,27 @@ body {
     opacity: 20%;
 }
 
-#sidebar a[role=button] {
+#sidebar button {
     padding: 2px 7% 5px 7%;
+    margin-bottom: 0.25rem;
+}
+
+#sidebar .grid {
+    column-gap: 0.25rem;
+}
+
+#sidebar footer {
+    background: none;
+    border: none;
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+}
+
+#sidebar footer #barde-info {
+    font-size: small;
+    opacity: 40%;
+    color: var(--muted-color)
 }
 
 #loading {
@@ -99,4 +120,18 @@ body {
 
 span.has-tooltip:hover {
     cursor: help;
+}
+
+.blink {
+    animation: blink 2s infinite both;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
 }

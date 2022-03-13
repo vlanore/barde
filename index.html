@@ -11,8 +11,9 @@
 </head>
 
 <body id="body" onload="brython(1)">
-    <div id="loading" aria-busy="true">
-        Loading...
+    <div id="loading">
+        <img src="barde.svg" class="blink">
+        <!-- <p aria-busy="true">Loading...</p> -->
     </div>
 
     <div id="sidebar" style="visibility: hidden;">
@@ -27,9 +28,14 @@
                 </ul>
             </nav>
             <p id="sidebar-content"></p>
-            <a role="button" id="saves" href="javascript:void(0);">saves</a>
-            <a role="button" id="restart" href="javascript:void(0);">restart</a>
-            <p><span id="light-mode">light</span> - <span id="dark-mode">dark</span></p>
+            <footer>
+                <div class="grid">
+                    <button id="saves" href="javascript:void(0);">saves</button>
+                    <button id="restart" href="javascript:void(0);">restart</button>
+                </div>
+                <span id="light-mode">light</span> - <span id="dark-mode">dark</span><br>
+                <a href="https://github.com/vlanore/barde" id="barde-info">powered by barde</a>
+            </footer>
         </article>
         <div id="open-sidebar" style="display:none;">☰</div>
     </div>
