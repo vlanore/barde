@@ -71,7 +71,11 @@ class Output:
         self.target.clear()
 
     def display(
-        self, text: str, markdown: bool = False, paragraph: bool = True
+        self,
+        text: str,
+        markdown: bool = False,
+        paragraph: bool = True,
+        tooltip: str = "",
     ) -> None:
         if markdown:
             mark, _ = mk.mark(text)
@@ -84,6 +88,9 @@ class Output:
         else:
             self.target <= bh.SPAN()
             self.target.children[-1].html = html
+        if tooltip != "":
+            self.target.children[-1].attrs["class"] = "has-tooltip"
+            self.target.children[-1] <= bh.ARTICLE(tooltip)
 
     def title(self, text) -> None:
         self.target <= bh.H1(text)

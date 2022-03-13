@@ -97,6 +97,10 @@ body {
     position: relative;
 }
 
+.has-tooltip:not(a):not(button) {
+    text-decoration: underline dotted;
+}
+
 .has-tooltip article {
     display: none;
     margin: 0;

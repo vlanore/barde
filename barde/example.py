@@ -80,7 +80,10 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
     )
 
     if new_apples > 0:
-        body.display(f"You gather {new_apples} apples")
+        body.display(f"You gather {new_apples} ", paragraph=False)
+        body.display(
+            "apples", paragraph=False, tooltip="It's a fruit used to make <b>pies</b>"
+        )
     else:
         body.display("You are in the orchard.")
 
