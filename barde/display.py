@@ -70,27 +70,70 @@ class Output:
     def clear_page(self):
         self.target.clear()
 
-    def display(
+    def _display(
         self,
+        parent,
         text: str,
         markdown: bool = False,
-        paragraph: bool = True,
         tooltip: str = "",
     ) -> None:
+
         if markdown:
             mark, _ = mk.mark(text)
             html = mark
         else:
             html = text
+
+        parent <= bh.SPAN()
+        parent.children[-1].html = html
+
+        if tooltip != "":
+            parent.children[-1].attrs["class"] = "has-tooltip"
+            parent.children[-1] <= bh.ARTICLE(tooltip)
+
+    def display(
+        self,
+        text: str,
+        markdown: bool = False,
+        paragraph: bool = True,
+        tooltips: Optional[list] = None,
+    ) -> None:
+
+        start: int = 0
+        blocks: list[tuple[str, bool]] = []
+        next_is_normal: bool = True
+        while True:
+            end = text.find("|", start)
+            if end == -1:
+                blocks.append((text[start:], next_is_normal))
+                assert next_is_normal
+                break
+            if next_is_normal:
+                blocks.append((text[start:end], next_is_normal))
+            else:
+                blocks.append((text[start:end], next_is_normal))
+            start = end + 1
+            next_is_normal = not next_is_normal
+
+        nb_tooltips = len(list(filter(lambda b: not b[1], blocks)))
+        if nb_tooltips > 0:
+            assert tooltips is not None
+            assert nb_tooltips == len(tooltips)
+
+        print(blocks, nb_tooltips)
+
         if paragraph:
             self.target <= bh.P()
-            self.target.children[-1].html = html
         else:
             self.target <= bh.SPAN()
-            self.target.children[-1].html = html
-        if tooltip != "":
-            self.target.children[-1].attrs["class"] = "has-tooltip"
-            self.target.children[-1] <= bh.ARTICLE(tooltip)
+        parent = self.target.children[-1]
+        for i, (block_content, is_normal) in enumerate(blocks):
+            if is_normal:
+                tooltip = ""
+            else:
+                assert tooltips is not None
+                tooltip = tooltips[int(i / 2)]
+            self._display(parent, block_content, markdown, tooltip)
 
     def title(self, text) -> None:
         self.target <= bh.H1(text)
