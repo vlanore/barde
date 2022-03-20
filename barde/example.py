@@ -113,5 +113,35 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
         ),
     )
 
+    body.cards(
+        [
+            (
+                "https://grocycle.com/wp-content/uploads/2020/01/"
+                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+                "My card is the best card I love it<br/>Hello<b> there </b>"
+                " it is so great yeah please help me <p> yuoupi",
+                lambda _: print("Youpi1"),
+            ),
+            (
+                "https://grocycle.com/wp-content/uploads/2020/01/"
+                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+                "My card",
+                lambda _: print("Youpi2"),
+            ),
+            (
+                "https://grocycle.com/wp-content/uploads/2020/01/"
+                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+                "My card",
+                lambda _: print("Youpi3"),
+            ),
+            (
+                "https://grocycle.com/wp-content/uploads/2020/01/"
+                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+                "My card",
+                lambda _: print("Youpi4"),
+            ),
+        ]
+    )
+
 
 run()

@@ -222,3 +222,21 @@ class Output:
         my_id = get_id()
         self.target <= bh.P(id=my_id)
         return DynamicInfo(my_id, text)
+
+    def cards(self, card_info: list[tuple[str, str, Optional[Callable]]]) -> None:
+        grid_width = min(3, len(card_info))
+        self.target <= bh.DIV(
+            Class="card-grid",
+            style="grid-template-columns: " + "1fr " * grid_width + ";",
+        )
+        grid = self.target.children[-1]
+        for image, text, action in card_info:
+            grid <= bh.DIV(Class="flip-card", style="width: min(23vw, 230px, 100%);")
+            grid.children[-1] <= bh.DIV(Class="flip-card-inner")
+            inner = grid.children[-1].children[-1]
+            inner <= bh.DIV(
+                Class="flip-card-front", style=f"background-image: url({image});"
+            )
+            inner <= bh.DIV(text, Class="flip-card-back")
+            if action is not None:
+                inner.bind("click", action)
