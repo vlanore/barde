@@ -1,5 +1,5 @@
+from dataclasses import dataclass
 from barde import (
-    STATE,
     passage,
     run,
     Output,
@@ -7,41 +7,51 @@ from barde import (
 from barde.display import call_passage
 
 
-@passage(start=True)
-def init(_body: Output, _sidebar: Output):
-    STATE["apples"] = 0
-    STATE["pies"] = 0
-    STATE["oven_is_on"] = False
+@dataclass
+class MyState:
+    apples: int = 0
+    pies: int = 0
+    oven_is_on: bool = False
+
+
+@passage(init_state=MyState())
+def init(_body: Output, _sidebar: Output, state: MyState):
+    state.apples = 0
+    state.pies = 0
+    state.oven_is_on = False
 
     call_passage(house)
 
 
-def my_sidebar(sidebar: Output) -> None:
+def my_sidebar(sidebar: Output, state: MyState) -> None:
     sidebar.display(
-        f"##### Inventory\n `{STATE['apples']}` apples<br/>`{STATE['pies']}` pies",
+        f"##### Inventory\n `{state.apples}` apples<br/>`{state.pies}` pies",
         markdown=True,
     )
 
 
 @passage
-def house(body: Output, sidebar: Output):
-    my_sidebar(sidebar)
+def house(body: Output, sidebar: Output, state: MyState):
+    my_sidebar(sidebar, state)
 
     def turn_oven_on():
-        STATE["oven_is_on"] = True
+        print("voilà")
+        state.oven_is_on = True
+        print(f"state={state}")
         call_passage(house)
 
     def bake_pie():
-        STATE["pies"] += 1
-        STATE["apples"] -= 5
+        print("voilà")
+        state.pies += 1
+        state.apples -= 5
         call_passage(house)
 
     body.title("Your house")
     body.display("You are in your |house|.", tooltips=["A pretty building"])
 
-    if STATE["oven_is_on"]:
+    if state.oven_is_on:
         body.display("The oven is on")
-        if STATE["apples"] >= 5:
+        if state.apples >= 5:
             body.action_link(bake_pie, "Bake a pie", tooltip="Bake a yummy <b>pie</b>!")
             body.display(" - ", paragraph=False)
         else:
@@ -49,7 +59,7 @@ def house(body: Output, sidebar: Output):
     else:
         body.display("The oven is off")
 
-    if not STATE["oven_is_on"]:
+    if not state.oven_is_on:
         body.action_link(
             turn_oven_on,
             "Turn on the oven",
@@ -78,10 +88,10 @@ def house(body: Output, sidebar: Output):
 
 
 @passage
-def orchard(body: Output, sidebar: Output, new_apples: int = 0):
-    STATE["apples"] += new_apples
+def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0):
+    state.apples += new_apples
 
-    my_sidebar(sidebar)
+    my_sidebar(sidebar, state)
 
     body.title("Orchard")
     body.image(
@@ -120,28 +130,29 @@ def orchard(body: Output, sidebar: Output, new_apples: int = 0):
                 "What-Is-A-Permaculture-Orchard-1024x400.jpg",
                 "My card is the best card I love it<br/>Hello<b> there </b>"
                 " it is so great yeah please help me <p> yuoupi",
-                lambda _: print("Youpi1"),
+                lambda: print("Youpi1"),
             ),
             (
                 "https://grocycle.com/wp-content/uploads/2020/01/"
                 "What-Is-A-Permaculture-Orchard-1024x400.jpg",
                 "My card",
-                lambda _: print("Youpi2"),
+                None,
             ),
             (
                 "https://grocycle.com/wp-content/uploads/2020/01/"
                 "What-Is-A-Permaculture-Orchard-1024x400.jpg",
                 "My card",
-                lambda _: print("Youpi3"),
+                None,
             ),
             (
                 "https://grocycle.com/wp-content/uploads/2020/01/"
                 "What-Is-A-Permaculture-Orchard-1024x400.jpg",
                 "My card",
-                lambda _: print("Youpi4"),
+                lambda: print("Youpi4"),
             ),
         ]
     )
 
 
-run()
+if __name__ == "__main__":
+    run()

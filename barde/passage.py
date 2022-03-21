@@ -1,17 +1,20 @@
 import sys
 import datetime
-from typing import Callable, Optional
+from typing import Callable, Optional, Any
+
+import jsonpickle
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from barde.display import call_passage
-from barde.state import STATE
+from barde.state import STORAGE
 
 
 PASSAGES = {}
 
-
 START: Optional[str] = None
+
+INIT_STATE: Any = None
 
 
 def hide_sidebar(_event):
@@ -45,7 +48,7 @@ def dark_mode(_event):
 
     document["html"].setAttribute("data-theme", "dark")
 
-    STATE["style-mode"] = "dark"
+    STORAGE["style-mode"] = "dark"
 
 
 def light_mode(_event):
@@ -59,13 +62,13 @@ def light_mode(_event):
 
     document["html"].setAttribute("data-theme", "light")
 
-    STATE["style-mode"] = "light"
+    STORAGE["style-mode"] = "light"
 
 
 def select_style():
     """Select style mode (light or dark) based on stored data."""
-    if "style-mode" in STATE.keys():
-        match STATE["style-mode"]:
+    if "style-mode" in STORAGE.keys():
+        match STORAGE["style-mode"]:
             case "light":
                 light_mode(None)
             case "dark":
@@ -86,14 +89,15 @@ def passage(*args, **kwargs):
             PASSAGES[func.__name__] = func
             return func
 
-        case ([start], {}) | ([], {"start": start}) if isinstance(start, bool):
+        case ([init_state], {}) | ([], {"init_state": init_state}):
 
-            def result(func: Callable, start=start):
+            def result(func: Callable, init_state=init_state):
                 global START
                 global PASSAGES
+                global INIT_STATE
 
-                if start:
-                    START = func.__name__
+                START = func.__name__
+                INIT_STATE = init_state
                 PASSAGES[func.__name__] = func
                 return func
 
@@ -115,9 +119,9 @@ def restart(_event):
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    for key in STATE.keys():
+    for key in STORAGE.keys():
         if "save__" not in key:
-            STATE.pop(key)
+            STORAGE.pop(key)
 
     document["hide-sidebar"].unbind("click")
     document["restart"].unbind("click")
@@ -136,13 +140,13 @@ def close_save_menu(_event) -> None:
 def render_save_list() -> None:
     document["save-menu-list"].clear()
     for i in range(5):
-        if f"save__{i}__savetime" in STATE.keys():
-            savetime: str = STATE[f"save__{i}__savetime"]
+        if f"save__{i}__savetime" in STORAGE.keys():
+            savetime: str = STORAGE[f"save__{i}__savetime"]
         else:
             savetime: str = " ___ "
 
-        if f"save__{i}__name" in STATE.keys():
-            name: str = STATE[f"save__{i}__name"]
+        if f"save__{i}__name" in STORAGE.keys():
+            name: str = STORAGE[f"save__{i}__name"]
         else:
             name: str = " ___ "
 
@@ -163,18 +167,18 @@ def render_save_list() -> None:
 
 
 def clear_slot(slot: int) -> None:
-    for key in STATE.keys():
+    for key in STORAGE.keys():
         if f"save__{slot}__" in key:
-            STATE.pop(key)
+            STORAGE.pop(key)
     render_save_list()
 
 
 def save_to(slot: int) -> None:
-    STATE[f"save__{slot}__savetime"] = str(datetime.datetime.now())
-    STATE[f"save__{slot}__name"] = STATE["last_passage"]
-    for key, value in STATE.items():
+    STORAGE[f"save__{slot}__savetime"] = str(datetime.datetime.now())
+    STORAGE[f"save__{slot}__name"] = STORAGE["last_passage"]
+    for key, value in STORAGE.items():
         if "save__" not in key:
-            STATE[f"save__{slot}__{key}"] = value
+            STORAGE[f"save__{slot}__{key}"] = value
     render_save_list()
 
 
@@ -182,17 +186,17 @@ def load_from(slot: int) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    for key in STATE.keys():
+    for key in STORAGE.keys():
         if "save__" not in key:
-            STATE.pop(key)
+            STORAGE.pop(key)
 
     document["hide-sidebar"].unbind("click")
     document["restart"].unbind("click")
 
-    for key, value in STATE.items():
+    for key, value in STORAGE.items():
         if f"save__{slot}" in key:
             name = key.split("__")[2]
-            STATE[name] = value
+            STORAGE[name] = value
 
     run()
     close_save_menu(None)
@@ -212,10 +216,12 @@ def run():
     select_style()
 
     # start from the last open page, or from scratch
-    if "last_passage" in STATE.keys():
-        call_passage(PASSAGES[STATE["last_passage"]], **STATE["last_passage_args"])
+    if "last_passage" in STORAGE.keys():
+        STORAGE["init_state"] = STORAGE["state_before_last_passage"]
+        call_passage(PASSAGES[STORAGE["last_passage"]], **STORAGE["last_passage_args"])
 
     elif START is not None:
+        STORAGE["init_state"] = jsonpickle.encode(INIT_STATE)
         call_passage(PASSAGES[START])
 
     # remove loading screen and display app

@@ -1,23 +1,33 @@
 from typing import Any, Callable, Optional
 
+import jsonpickle
+
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
-from barde.state import STATE
+from barde.state import STORAGE
 
 NEXT_ID = 0
 
+STATE = None
+
 
 def call_passage(passage: Callable, **params: dict[str, Any]) -> None:
+    global STATE
+    if STATE is None:
+        STATE = jsonpickle.decode(STORAGE["init_state"])
+
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    STATE["last_passage"] = passage.__name__
-    STATE["last_passage_args"] = params
+    STORAGE["last_passage"] = passage.__name__
+    STORAGE["last_passage_args"] = params
+    STORAGE["state_before_last_passage"] = jsonpickle.encode(STATE)
     passage(
         Output(document["main"]),
         Output(document["sidebar-content"]),
+        STATE,
         **params,
     )
 
@@ -41,7 +51,7 @@ class Input:
         return self.convert(document[self.my_id].value)
 
     def on_change(self, func: Callable) -> None:
-        document[self.my_id].bind("input", lambda _, func=func: func())
+        document[self.my_id].bind("input", lambda _: func())
 
 
 class Radio:
@@ -53,7 +63,7 @@ class Radio:
 
     def on_change(self, func: Callable) -> None:
         for element in document.select(f"input[name='{self.my_id}']"):
-            element.bind("input", lambda _, func=func: func())
+            element.bind("input", lambda _: func())
 
 
 def get_id() -> str:
@@ -120,8 +130,6 @@ class Output:
             assert tooltips is not None
             assert nb_tooltips == len(tooltips)
 
-        print(blocks, nb_tooltips)
-
         if paragraph:
             self.target <= bh.P()
         else:
@@ -174,7 +182,7 @@ class Output:
 
         self.target <= " "
 
-        document[my_id].bind("click", lambda _, args=kwargs.copy(): func(**args))
+        document[my_id].bind("click", lambda _, kwargs=kwargs.copy(): func(*kwargs))
 
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
@@ -239,4 +247,5 @@ class Output:
             )
             inner <= bh.DIV(text, Class="flip-card-back")
             if action is not None:
-                inner.bind("click", action)
+                inner.bind("click", lambda _, action=action: action())
+                inner.style = "cursor: pointer;"

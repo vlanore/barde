@@ -4,4 +4,4 @@ from browser.object_storage import (  # type:ignore ; pylint: disable=import-err
 )
 
 
-STATE = ObjectStorage(storage)
+STORAGE = ObjectStorage(storage)
