@@ -1,6 +1,5 @@
+import dataclasses
 from typing import Any, Callable, Optional
-
-import jsonpickle
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
@@ -23,7 +22,7 @@ def call_passage(passage: Callable, _init_state=None, **params: dict[str, Any]) 
 
     STORAGE["last_passage"] = passage.__name__
     STORAGE["last_passage_args"] = params
-    STORAGE["state_before_last_passage"] = jsonpickle.encode(STATE)
+    STORAGE["state_before_last_passage"] = dataclasses.asdict(STATE)
     passage(
         Output(document["main"]),
         Output(document["sidebar-content"]),

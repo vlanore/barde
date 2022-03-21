@@ -2,8 +2,6 @@ import sys
 import datetime
 from typing import Callable, Optional, Any
 
-import jsonpickle
-
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 
@@ -188,7 +186,8 @@ def load_from(slot: int) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    state_before_last_passage = jsonpickle.decode(STORAGE[f"save__{slot}__state"])
+    state_type = type(INIT_STATE)
+    state_before_last_passage = state_type(**STORAGE[f"save__{slot}__state"])
     last_passage = STORAGE[f"save__{slot}__last_passage"]
     last_passage_args = STORAGE[f"save__{slot}__last_passage_args"]
 
@@ -215,7 +214,8 @@ def run():
 
     # start from the last open page, or from scratch
     if "last_passage" in STORAGE.keys():
-        init_state = jsonpickle.decode(STORAGE["state_before_last_passage"])
+        state_type = type(INIT_STATE)
+        init_state = state_type(**STORAGE["state_before_last_passage"])
         call_passage(
             PASSAGES[STORAGE["last_passage"]],
             _init_state=init_state,
