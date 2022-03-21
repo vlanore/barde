@@ -8,15 +8,15 @@ from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
 from barde.state import STORAGE
 
-NEXT_ID = 0
+_NEXT_ID = 0
 
 STATE = None
 
 
-def call_passage(passage: Callable, **params: dict[str, Any]) -> None:
+def call_passage(passage: Callable, _init_state=None, **params: dict[str, Any]) -> None:
     global STATE
-    if STATE is None:
-        STATE = jsonpickle.decode(STORAGE["init_state"])
+    if _init_state is not None:
+        STATE = _init_state
 
     document["main"].clear()
     document["sidebar-content"].clear()
@@ -67,9 +67,9 @@ class Radio:
 
 
 def get_id() -> str:
-    global NEXT_ID
-    my_id = NEXT_ID
-    NEXT_ID += 1
+    global _NEXT_ID
+    my_id = _NEXT_ID
+    _NEXT_ID += 1
     return f"id_{my_id}"
 
 

@@ -6,6 +6,7 @@ import jsonpickle
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
+
 from barde.display import call_passage
 from barde.state import STORAGE
 
@@ -176,9 +177,10 @@ def clear_slot(slot: int) -> None:
 def save_to(slot: int) -> None:
     STORAGE[f"save__{slot}__savetime"] = str(datetime.datetime.now())
     STORAGE[f"save__{slot}__name"] = STORAGE["last_passage"]
-    for key, value in STORAGE.items():
-        if "save__" not in key:
-            STORAGE[f"save__{slot}__{key}"] = value
+    STORAGE[f"save__{slot}__last_passage"] = STORAGE["last_passage"]
+    STORAGE[f"save__{slot}__last_passage_args"] = STORAGE["last_passage_args"]
+    STORAGE[f"save__{slot}__state"] = STORAGE["state_before_last_passage"]
+
     render_save_list()
 
 
@@ -186,19 +188,15 @@ def load_from(slot: int) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    for key in STORAGE.keys():
-        if "save__" not in key:
-            STORAGE.pop(key)
+    state_before_last_passage = jsonpickle.decode(STORAGE[f"save__{slot}__state"])
+    last_passage = STORAGE[f"save__{slot}__last_passage"]
+    last_passage_args = STORAGE[f"save__{slot}__last_passage_args"]
 
-    document["hide-sidebar"].unbind("click")
-    document["restart"].unbind("click")
-
-    for key, value in STORAGE.items():
-        if f"save__{slot}" in key:
-            name = key.split("__")[2]
-            STORAGE[name] = value
-
-    run()
+    call_passage(
+        PASSAGES[last_passage],
+        _init_state=state_before_last_passage,
+        **last_passage_args,
+    )
     close_save_menu(None)
 
 
@@ -217,12 +215,16 @@ def run():
 
     # start from the last open page, or from scratch
     if "last_passage" in STORAGE.keys():
-        STORAGE["init_state"] = STORAGE["state_before_last_passage"]
-        call_passage(PASSAGES[STORAGE["last_passage"]], **STORAGE["last_passage_args"])
+        init_state = jsonpickle.decode(STORAGE["state_before_last_passage"])
+        call_passage(
+            PASSAGES[STORAGE["last_passage"]],
+            _init_state=init_state,
+            **STORAGE["last_passage_args"],
+        )
 
     elif START is not None:
-        STORAGE["init_state"] = jsonpickle.encode(INIT_STATE)
-        call_passage(PASSAGES[START])
+        init_state = INIT_STATE
+        call_passage(PASSAGES[START], _init_state=init_state)
 
     # remove loading screen and display app
     document["main"].style = "visibility: visible;"
