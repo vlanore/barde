@@ -142,7 +142,7 @@ def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0):
                 "https://grocycle.com/wp-content/uploads/2020/01/"
                 "What-Is-A-Permaculture-Orchard-1024x400.jpg",
                 "",
-                None,
+                lambda: print("Youpi3"),
             ),
             (
                 "",
