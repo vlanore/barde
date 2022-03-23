@@ -239,9 +239,7 @@ class Output:
         grid = self.target.children[-1]
         for image, text, action in card_info:
             if text != "" and image != "":
-                grid <= bh.DIV(
-                    Class="flip-card", style="width: min(23vw, 230px, 100%);"
-                )
+                grid <= bh.DIV(Class="flip-card")
                 grid.children[-1] <= bh.DIV(Class="flip-card-inner")
                 inner = grid.children[-1].children[-1]
                 inner <= bh.DIV(

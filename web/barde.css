@@ -142,6 +142,7 @@ span.has-tooltip:hover {
 
 .single-card {
     aspect-ratio: 2.5 / 3.5;
+    width: min(23vw, 230px, 100%);
     margin: 0 auto;
     position: relative;
     width: 100%;
@@ -161,6 +162,7 @@ span.has-tooltip:hover {
 .flip-card {
     background-color: transparent;
     aspect-ratio: 2.5 / 3.5;
+    width: min(23vw, 230px, 100%);
     perspective: 1000px;
     margin: 0 auto;
 }
