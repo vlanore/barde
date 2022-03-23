@@ -258,7 +258,7 @@ class Output:
                 )
                 if action is not None:
                     grid.children[-1].bind("click", lambda _, action=action: action())
-                    grid.children[-1].style = "cursor: pointer;"
+                    grid.children[-1].style += "cursor: pointer;"
 
             elif text != "":
                 grid <= bh.DIV(
@@ -267,4 +267,4 @@ class Output:
                 )
                 if action is not None:
                     grid.children[-1].bind("click", lambda _, action=action: action())
-                    grid.children[-1].style = "cursor: pointer;"
+                    grid.children[-1].style += "cursor: pointer;"
