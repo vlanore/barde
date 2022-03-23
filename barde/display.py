@@ -238,13 +238,35 @@ class Output:
         )
         grid = self.target.children[-1]
         for image, text, action in card_info:
-            grid <= bh.DIV(Class="flip-card", style="width: min(23vw, 230px, 100%);")
-            grid.children[-1] <= bh.DIV(Class="flip-card-inner")
-            inner = grid.children[-1].children[-1]
-            inner <= bh.DIV(
-                Class="flip-card-front", style=f"background-image: url({image});"
-            )
-            inner <= bh.DIV(text, Class="flip-card-back")
-            if action is not None:
-                inner.bind("click", lambda _, action=action: action())
-                inner.style = "cursor: pointer;"
+            if text != "" and image != "":
+                grid <= bh.DIV(
+                    Class="flip-card", style="width: min(23vw, 230px, 100%);"
+                )
+                grid.children[-1] <= bh.DIV(Class="flip-card-inner")
+                inner = grid.children[-1].children[-1]
+                inner <= bh.DIV(
+                    Class="flip-card-front",
+                    style=f"background-image: url({image});",
+                )
+                inner <= bh.DIV(text, Class="flip-card-back")
+                if action is not None:
+                    inner.bind("click", lambda _, action=action: action())
+                    inner.style = "cursor: pointer;"
+
+            elif image != "":
+                grid <= bh.DIV(
+                    Class="single-card",
+                    style=f"background-image: url({image});",
+                )
+                if action is not None:
+                    grid.children[-1].bind("click", lambda _, action=action: action())
+                    grid.children[-1].style = "cursor: pointer;"
+
+            elif text != "":
+                grid <= bh.DIV(
+                    text,
+                    Class="single-card",
+                )
+                if action is not None:
+                    grid.children[-1].bind("click", lambda _, action=action: action())
+                    grid.children[-1].style = "cursor: pointer;"

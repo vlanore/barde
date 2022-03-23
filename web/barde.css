@@ -140,6 +140,24 @@ span.has-tooltip:hover {
     }
 }
 
+.single-card {
+    aspect-ratio: 2.5 / 3.5;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-box-shadow);
+    background-color: var(--card-background-color);
+    background-size: cover;
+    background-position: center;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    padding: 10%;
+    word-wrap: break-word;
+}
+
 .flip-card {
     background-color: transparent;
     aspect-ratio: 2.5 / 3.5;
@@ -184,7 +202,8 @@ span.has-tooltip:hover {
     scrollbar-width: none;
 }
 
-.flip-card-back::-webkit-scrollbar {
+.flip-card-back::-webkit-scrollbar,
+.single-card::-webkit-scrollbar {
     display: none;
 }
 
