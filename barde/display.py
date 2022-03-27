@@ -1,18 +1,28 @@
-import dataclasses
 from typing import Any, Callable, Optional
 
-from browser import document  # type:ignore ; pylint: disable=import-error
+import json  # noqa: F401 ; pylint: disable=unused-import
+import simplejson  # noqa: F401 ; pylint: disable=unused-import
+import jsonpickle
+
+from browser import document, window  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
 from barde.state import STORAGE
+
 
 _NEXT_ID = 0
 
 STATE = None
 
 
-def call_passage(passage: Callable, _init_state=None, **params: dict[str, Any]) -> None:
+def call_passage(
+    passage: Callable,
+    _init_state=None,
+    scroll_to_top: bool = True,
+    **params: dict[str, Any],
+) -> None:
+
     global STATE
     if _init_state is not None:
         STATE = _init_state
@@ -22,13 +32,15 @@ def call_passage(passage: Callable, _init_state=None, **params: dict[str, Any]) 
 
     STORAGE["last_passage"] = passage.__name__
     STORAGE["last_passage_args"] = params
-    STORAGE["state_before_last_passage"] = dataclasses.asdict(STATE)
+    STORAGE["state_before_last_passage"] = jsonpickle.encode(STATE)
     passage(
         Output(document["main"]),
         Output(document["sidebar-content"]),
         STATE,
         **params,
     )
+    if scroll_to_top:
+        window.scrollTo(0, 0)
 
 
 class DynamicInfo:
