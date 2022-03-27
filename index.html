@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="web/brython.js"></script>
-    <script type="text/javascript" src="web/brython_stdlib.js"></script>
+    <script type="text/javascript" src="web/brython_modules.js"></script>
     <script type="text/python" src="barde/example.py" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <link rel="stylesheet" href="web/barde.css">
@@ -12,8 +12,8 @@
 
 <body id="body" onload="brython(1);">
     <div id="loading">
-        <img src="barde.svg" class="blink">
-        <!-- <p aria-busy="true">Loading...</p> -->
+        <!-- <img src="barde.svg" class="blink"> -->
+        <p aria-busy="true">Loading...</p>
     </div>
 
     <div id="sidebar" style="visibility: hidden;">
