@@ -76,15 +76,15 @@ def house(body: Output, sidebar: Output, state: MyState):
         ),
     )
 
-    body.display("<hr/>")
-    body.radio_buttons(
-        ["pie cooking mode", "cookie cooking mode", "special mode"],
-        tooltips=[
-            "To bake delicious apple pies",
-            "To bake wonderful cookies",
-            "A mysterious mode for the adventurous cook",
-        ],
-    )
+    # body.display("<hr/>")
+    # body.radio_buttons(
+    #     ["pie cooking mode", "cookie cooking mode", "special mode"],
+    #     tooltips=[
+    #         "To bake delicious apple pies",
+    #         "To bake wonderful cookies",
+    #         "A mysterious mode for the adventurous cook",
+    #     ],
+    # )
 
 
 @passage
@@ -123,34 +123,34 @@ def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0):
         ),
     )
 
-    body.cards(
-        [
-            (
-                "https://grocycle.com/wp-content/uploads/2020/01/"
-                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
-                "My card is the best card I love it<br/>Hello<b> there </b>"
-                " it is so great yeah please help me <p> yuoupi",
-                lambda: print("Youpi1"),
-            ),
-            (
-                "https://grocycle.com/wp-content/uploads/2020/01/"
-                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
-                "My card",
-                None,
-            ),
-            (
-                "https://grocycle.com/wp-content/uploads/2020/01/"
-                "What-Is-A-Permaculture-Orchard-1024x400.jpg",
-                "",
-                lambda: print("Youpi3"),
-            ),
-            (
-                "",
-                "My <b>card</b>",
-                lambda: print("Youpi4"),
-            ),
-        ]
-    )
+    # body.cards(
+    #     [
+    #         (
+    #             "https://grocycle.com/wp-content/uploads/2020/01/"
+    #             "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+    #             "My card is the best card I love it<br/>Hello<b> there </b>"
+    #             " it is so great yeah please help me <p> yuoupi",
+    #             lambda: print("Youpi1"),
+    #         ),
+    #         (
+    #             "https://grocycle.com/wp-content/uploads/2020/01/"
+    #             "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+    #             "My card",
+    #             None,
+    #         ),
+    #         (
+    #             "https://grocycle.com/wp-content/uploads/2020/01/"
+    #             "What-Is-A-Permaculture-Orchard-1024x400.jpg",
+    #             "",
+    #             lambda: print("Youpi3"),
+    #         ),
+    #         (
+    #             "",
+    #             "My <b>card</b>",
+    #             lambda: print("Youpi4"),
+    #         ),
+    #     ]
+    # )
 
 
 if __name__ == "__main__":
