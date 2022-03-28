@@ -1,11 +1,7 @@
+import json
 import sys
 import datetime
 from typing import Callable, Optional, Any
-
-import json  # noqa: F401 ; pylint: disable=unused-import
-import simplejson  # noqa: F401 ; pylint: disable=unused-import
-import jsonpickle
-
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
@@ -16,9 +12,9 @@ from barde.state import STORAGE
 
 PASSAGES = {}
 
-START: Optional[str] = None
+START = None
 
-INIT_STATE: Any = None
+INIT_STATE = None
 
 
 def hide_sidebar(_event):
@@ -191,7 +187,11 @@ def load_from(slot: int) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    state_before_last_passage = jsonpickle.decode(STORAGE[f"save__{slot}__state"])
+    state_type = type(INIT_STATE)
+    state_dict = json.loads(STORAGE[f"save__{slot}__state"])
+    print(state_dict)
+    state_before_last_passage = state_type(**state_dict)
+    print(init_state)
     last_passage = STORAGE[f"save__{slot}__last_passage"]
     last_passage_args = STORAGE[f"save__{slot}__last_passage_args"]
 
@@ -218,7 +218,11 @@ def run():
 
     # start from the last open page, or from scratch
     if "last_passage" in STORAGE.keys():
-        init_state = jsonpickle.decode(STORAGE["state_before_last_passage"])
+        state_type = type(INIT_STATE)
+        state_dict = json.loads(STORAGE["state_before_last_passage"])
+        print(state_dict)
+        init_state = state_type(**state_dict)
+        print(init_state)
         call_passage(
             PASSAGES[STORAGE["last_passage"]],
             _init_state=init_state,

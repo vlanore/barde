@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from barde import (
     passage,
     run,
@@ -8,16 +8,21 @@ from barde.display import call_passage
 
 
 @dataclass
-class MyState:
+class Inventory:
     apples: int = 0
     pies: int = 0
+
+
+@dataclass
+class MyState:
+    inventory: Inventory = field(default_factory=Inventory)
     oven_is_on: bool = False
 
 
 @passage(init_state=MyState())
 def init(_body: Output, _sidebar: Output, state: MyState):
-    state.apples = 0
-    state.pies = 0
+    state.inventory.apples = 0
+    state.inventory.pies = 0
     state.oven_is_on = False
 
     call_passage(house)
@@ -25,7 +30,8 @@ def init(_body: Output, _sidebar: Output, state: MyState):
 
 def my_sidebar(sidebar: Output, state: MyState) -> None:
     sidebar.display(
-        f"##### Inventory\n `{state.apples}` apples<br/>`{state.pies}` pies",
+        f"##### Inventory\n `{state.inventory.apples}`"
+        f" apples<br/>`{state.inventory.pies}` pies",
         markdown=True,
     )
 
@@ -42,8 +48,8 @@ def house(body: Output, sidebar: Output, state: MyState):
 
     def bake_pie():
         print("voilà")
-        state.pies += 1
-        state.apples -= 5
+        state.inventory.pies += 1
+        state.inventory.apples -= 5
         call_passage(house)
 
     body.title("Your house")
@@ -51,7 +57,7 @@ def house(body: Output, sidebar: Output, state: MyState):
 
     if state.oven_is_on:
         body.display("The oven is on")
-        if state.apples >= 5:
+        if state.inventory.apples >= 5:
             body.action_link(bake_pie, "Bake a pie", tooltip="Bake a yummy <b>pie</b>!")
             body.display(" - ", paragraph=False)
         else:
@@ -89,7 +95,7 @@ def house(body: Output, sidebar: Output, state: MyState):
 
 @passage
 def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0):
-    state.apples += new_apples
+    state.inventory.apples += new_apples
 
     my_sidebar(sidebar, state)
 

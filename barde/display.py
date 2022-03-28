@@ -1,14 +1,10 @@
 from typing import Any, Callable, Optional
 
-import json  # noqa: F401 ; pylint: disable=unused-import
-import simplejson  # noqa: F401 ; pylint: disable=unused-import
-import jsonpickle
-
 from browser import document, window  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
-from barde.state import STORAGE
+from barde.state import STORAGE, encode_state
 
 
 _NEXT_ID = 0
@@ -32,7 +28,7 @@ def call_passage(
 
     STORAGE["last_passage"] = passage.__name__
     STORAGE["last_passage_args"] = params
-    STORAGE["state_before_last_passage"] = jsonpickle.encode(STATE)
+    STORAGE["state_before_last_passage"] = encode_state(STATE)
     passage(
         Output(document["main"]),
         Output(document["sidebar-content"]),
