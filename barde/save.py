@@ -1,8 +1,8 @@
 import datetime
 from typing import Type
 
-from browser import document  # type:ignore ; pylint: disable=import-error
-from browser import html as bh  # type:ignore ; pylint: disable=import-error
+from browser import document  # type:ignore # pylint: disable=import-error
+from browser import html as bh  # type:ignore # pylint: disable=import-error
 
 from barde.state import STORAGE, State
 from barde.display import call_passage

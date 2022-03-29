@@ -1,8 +1,8 @@
 from typing import Any, Callable, Optional
 
-from browser import document, window  # type:ignore ; pylint: disable=import-error
-from browser import html as bh  # type:ignore ; pylint: disable=import-error
-from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
+from browser import document, window  # type:ignore # pylint: disable=import-error
+from browser import html as bh  # type:ignore # pylint: disable=import-error
+from browser import markdown as mk  # type:ignore # pylint: disable=import-error
 
 from barde.state import STORAGE, State
 
