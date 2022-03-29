@@ -14,4 +14,5 @@ disable =
     pointless-statement,
     global-statement,
     global-variable-not-assigned,
-    unspecified-encoding
+    unspecified-encoding,
+    no-member
