@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="146.13884mm"
+   width="181.90891mm"
    height="25.037771mm"
-   viewBox="0 0 146.13884 25.037771"
+   viewBox="0 0 181.90891 25.037771"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.4645623"
-     inkscape:cx="196.30438"
-     inkscape:cy="115.05144"
+     inkscape:zoom="1.0356019"
+     inkscape:cx="267.9601"
+     inkscape:cy="-16.898385"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="2552"
@@ -41,13 +41,25 @@
      id="defs2">
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient46832">
+      <stop
+         style="stop-color:#849ccd;stop-opacity:0.38656987"
+         offset="0"
+         id="stop46828" />
+      <stop
+         style="stop-color:#8d96d9;stop-opacity:0.94901961"
+         offset="1"
+         id="stop46830" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient1488">
       <stop
          style="stop-color:#849ccd;stop-opacity:1;"
          offset="0"
          id="stop1484" />
       <stop
-         style="stop-color:#5866c7;stop-opacity:0.58983666"
+         style="stop-color:#5866c7;stop-opacity:0.37568058"
          offset="1"
          id="stop1486" />
     </linearGradient>
@@ -59,6 +71,16 @@
        y1="55.469181"
        x2="168.64362"
        y2="62.622833"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.2447677,0,0,1,-4.0076025,0)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient46832"
+       id="linearGradient45590"
+       x1="30.01428"
+       y1="122.91651"
+       x2="152.21359"
+       y2="122.91651"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <g
@@ -68,13 +90,13 @@
      transform="translate(-16.373083,-45.760658)">
     <path
        id="rect888"
-       style="fill:url(#linearGradient1490);stroke-width:1.116;stroke-linejoin:round;stroke-miterlimit:10;paint-order:stroke markers fill"
-       d="M 16.373083,45.760658 H 162.51192 l -6.1317,25.037771 H 16.373083 Z"
+       style="fill:url(#linearGradient1490);stroke-width:1.24511;stroke-linejoin:round;stroke-miterlimit:10;paint-order:stroke markers fill"
+       d="M 16.373083,45.760658 H 198.28199 l 0.79855,25.037771 -182.707457,0 z"
        sodipodi:nodetypes="ccccc" />
     <g
        id="g12882"
-       style="opacity:0.201954"
-       transform="matrix(1.1006748,0,0,1.1006748,-18.262804,-63.044429)">
+       style="opacity:0.123412"
+       transform="matrix(1.2166846,0,0,1.2166846,-15.982622,-74.96443)">
       <path
          id="path15"
          style="fill-rule:evenodd;stroke:#000000;stroke-width:0.00415278;stroke-miterlimit:10"
@@ -238,14 +260,101 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:19.5966px;line-height:1.25;font-family:'Hey August';-inkscape-font-specification:'Hey August';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.489849;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
-       x="20.276699"
-       y="65.595154"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.9282px;line-height:1.25;font-family:'Microsoft Yi Baiti';-inkscape-font-specification:'Microsoft Yi Baiti';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.473141;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
+       x="23.834452"
+       y="63.333961"
        id="text1904"><tspan
          sodipodi:role="line"
          id="tspan1902"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Hey August';-inkscape-font-specification:'Hey August';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.489849;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
-         x="20.276699"
-         y="65.595154">Barde</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Microsoft Yi Baiti';-inkscape-font-specification:'Microsoft Yi Baiti';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.473141;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
+         x="23.834452"
+         y="63.333961">Barde</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:5.3441px;line-height:1.25;font-family:sans-serif;fill:url(#linearGradient45590);fill-opacity:1;stroke:none;stroke-width:0.133603;opacity:0.73502722"
+       x="30.01428"
+       y="72.656395"
+       id="text2213"
+       transform="rotate(-37.309633)"><tspan
+         sodipodi:role="line"
+         id="tspan2211"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="72.656395">Sed ut perspiciatis unde omnis iste </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="79.524399"
+         id="tspan14341">natus error sit voluptatem accusantium </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="86.392403"
+         id="tspan15273">doloremque laudantium, totam rem aperiam, </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="93.260406"
+         id="tspan16685">eaque ipsa quae ab illo inventore veritatis et </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="100.12841"
+         id="tspan17461">quasi architecto beatae vitae dicta sunt explicabo. </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="106.99641"
+         id="tspan18621">Nemo enim ipsam voluptatem quia voluptas sit </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="113.86442"
+         id="tspan20927">aspernatur aut odit aut fugit, sed quia</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="120.73242"
+         id="tspan24619"> consequuntur magni dolores eos qui ratione</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="127.60042"
+         id="tspan27477"> voluptatem sequi nesciunt. Neque porro </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="134.46843"
+         id="tspan28895">quisquam est, qui dolorem ipsum quia dolor </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="141.33643"
+         id="tspan30277">sit amet, consectetur, adipisci velit, sed quia</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="148.20444"
+         id="tspan32397"> non numquam eius modi tempora incidunt </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="155.07243"
+         id="tspan34093">ut labore et dolore magnam aliquam quaerat</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="161.94044"
+         id="tspan35125"> voluptatem. Ut enim ad minima veniam, quis</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="168.80844"
+         id="tspan35907"> nostrum exercitationem ullam corporis suscipit </tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
+         x="30.01428"
+         y="175.67645"
+         id="tspan36731">laboriosam, nisi ut aliquid ex ea commodi consequatur?</tspan></text>
   </g>
 </svg>
