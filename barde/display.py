@@ -5,7 +5,8 @@ from browser import html as bh  # type:ignore # pylint: disable=import-error
 from browser import markdown as mk  # type:ignore # pylint: disable=import-error
 
 from barde.state import STORAGE, State
-from barde.passage import Passage
+
+Passage = Callable[..., None]
 
 
 _NEXT_ID = 0
