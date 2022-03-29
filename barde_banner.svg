@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="181.90891mm"
-   height="25.037771mm"
-   viewBox="0 0 181.90891 25.037771"
+   width="690.54785"
+   height="73.374016"
+   viewBox="0 0 182.70746 19.413542"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.0356019"
-     inkscape:cx="267.9601"
-     inkscape:cy="-16.898385"
+     inkscape:cx="267.96011"
+     inkscape:cy="-27.520228"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="2552"
@@ -36,7 +36,8 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     units="px" />
   <defs
      id="defs2">
     <linearGradient
@@ -72,7 +73,7 @@
        x2="168.64362"
        y2="62.622833"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.2447677,0,0,1,-4.0076025,0)" />
+       gradientTransform="matrix(1.2447677,0,0,0.77537019,-4.0076025,13.091323)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient46832"
@@ -87,11 +88,11 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-16.373083,-45.760658)">
+     transform="translate(-16.373083,-48.572773)">
     <path
        id="rect888"
-       style="fill:url(#linearGradient1490);stroke-width:1.24511;stroke-linejoin:round;stroke-miterlimit:10;paint-order:stroke markers fill"
-       d="M 16.373083,45.760658 H 198.28199 l 0.79855,25.037771 -182.707457,0 z"
+       style="fill:url(#linearGradient1490);stroke-width:1.09639;stroke-linejoin:round;stroke-miterlimit:10;paint-order:stroke markers fill"
+       d="M 16.373083,48.572773 H 198.28199 l 0.79855,19.413541 H 16.373083 Z"
        sodipodi:nodetypes="ccccc" />
     <g
        id="g12882"
@@ -260,18 +261,18 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.9282px;line-height:1.25;font-family:'Microsoft Yi Baiti';-inkscape-font-specification:'Microsoft Yi Baiti';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.473141;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
-       x="23.834452"
-       y="63.333961"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.6433px;line-height:1.25;font-family:'Microsoft Yi Baiti';-inkscape-font-specification:'Microsoft Yi Baiti';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.39103;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
+       x="27.131271"
+       y="62.344093"
        id="text1904"><tspan
          sodipodi:role="line"
          id="tspan1902"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Microsoft Yi Baiti';-inkscape-font-specification:'Microsoft Yi Baiti';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.473141;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
-         x="23.834452"
-         y="63.333961">Barde</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Microsoft Yi Baiti';-inkscape-font-specification:'Microsoft Yi Baiti';fill:#f5f5f8;fill-opacity:1;stroke:none;stroke-width:0.39103;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:0.345098"
+         x="27.131271"
+         y="62.344093">Barde</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:5.3441px;line-height:1.25;font-family:sans-serif;fill:url(#linearGradient45590);fill-opacity:1;stroke:none;stroke-width:0.133603;opacity:0.73502722"
+       style="font-style:normal;font-weight:normal;font-size:5.3441px;line-height:1.25;font-family:sans-serif;opacity:0.735027;fill:url(#linearGradient45590);fill-opacity:1;stroke:none;stroke-width:0.133603"
        x="30.01428"
        y="72.656395"
        id="text2213"
@@ -319,7 +320,7 @@
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
          x="30.01428"
-         y="127.60042"
+         y="127.60043"
          id="tspan27477"> voluptatem sequi nesciunt. Neque porro </tspan><tspan
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Candara;-inkscape-font-specification:Candara;fill:url(#linearGradient45590);fill-opacity:1;stroke-width:0.133603"
