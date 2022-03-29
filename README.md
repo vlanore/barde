@@ -1,4 +1,4 @@
-![](barde_banner.svg)
+<img src="barde_banner.svg" style="width:100%">
 
 [![Pylint](https://github.com/vlanore/barde/actions/workflows/pylint.yml/badge.svg)](https://github.com/vlanore/barde/actions/workflows/pylint.yml)
 
