@@ -1,4 +1,4 @@
-PASSAGES = {}
+PASSAGES = {}  # type:ignore
 
 START = None
 

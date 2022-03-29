@@ -1,5 +1,5 @@
 import datetime
-from typing import Type
+from typing import Any, Type
 
 from browser import document  # type:ignore # pylint: disable=import-error
 from browser import html as bh  # type:ignore # pylint: disable=import-error
@@ -9,11 +9,11 @@ from barde.display import call_passage
 import barde.globals as globs
 
 
-def open_save_menu(_event) -> None:
+def open_save_menu(_event: Any) -> None:
     document["save-menu"].showModal()
 
 
-def close_save_menu(_event) -> None:
+def close_save_menu(_event: Any) -> None:
     document["save-menu"].close()
 
 
@@ -23,12 +23,12 @@ def render_save_list() -> None:
         if f"save__{i}__savetime" in STORAGE.keys():
             savetime: str = STORAGE[f"save__{i}__savetime"]
         else:
-            savetime: str = " ___ "
+            savetime = " ___ "
 
         if f"save__{i}__name" in STORAGE.keys():
             name: str = STORAGE[f"save__{i}__name"]
         else:
-            name: str = " ___ "
+            name = " ___ "
 
         save_block = document["save-menu-list"] <= bh.TR()
         save_block <= bh.TH(i + 1, scope="row") + bh.TD(savetime) + bh.TD(name)

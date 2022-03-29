@@ -1,9 +1,11 @@
 from dataclasses import dataclass, field, asdict
+from typing import Any
 from barde import (
     passage,
     run,
     Output,
 )
+from barde.passage import start_passage
 from barde.display import call_passage
 
 
@@ -18,18 +20,18 @@ class MyState:
     inventory: Inventory = field(default_factory=Inventory)
     oven_is_on: bool = False
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, dict_in: dict) -> "MyState":
+    def from_dict(cls, dict_in: dict[str, Any]) -> "MyState":
         return MyState(
             inventory=Inventory(**dict_in["inventory"]),
             oven_is_on=dict_in["oven_is_on"],
         )
 
 
-@passage(init_state=MyState())
+@start_passage(init_state=MyState())
 def init(_body: Output, _sidebar: Output, state: MyState) -> None:
     state.inventory.apples = 0
     state.inventory.pies = 0
@@ -47,16 +49,16 @@ def my_sidebar(sidebar: Output, state: MyState) -> None:
 
 
 @passage
-def house(body: Output, sidebar: Output, state: MyState):
+def house(body: Output, sidebar: Output, state: MyState) -> None:
     my_sidebar(sidebar, state)
 
-    def turn_oven_on():
+    def turn_oven_on() -> None:
         print("voilà")
         state.oven_is_on = True
         print(f"state={state}")
         call_passage(house)
 
-    def bake_pie():
+    def bake_pie() -> None:
         print("voilà")
         state.inventory.pies += 1
         state.inventory.apples -= 5
@@ -104,7 +106,7 @@ def house(body: Output, sidebar: Output, state: MyState):
 
 
 @passage
-def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0):
+def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0) -> None:
     state.inventory.apples += new_apples
 
     my_sidebar(sidebar, state)

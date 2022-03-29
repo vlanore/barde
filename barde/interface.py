@@ -1,9 +1,10 @@
+from typing import Any
 from browser import document  # type:ignore # pylint: disable=import-error
 
 from barde.state import STORAGE
 
 
-def hide_sidebar(_event):
+def hide_sidebar(_event: Any) -> None:
     document["open-sidebar"].style = "display:block;"
     document["sidebar-box"].style = "display:none;"
     document["hide-sidebar"].unbind("click")
@@ -11,7 +12,7 @@ def hide_sidebar(_event):
     document["body"].style = "grid-template-columns: 0 1fr min(95vw, 700px) 1fr;"
 
 
-def open_sidebar(_event):
+def open_sidebar(_event: Any) -> None:
     document["open-sidebar"].style = "display:none;"
     document["open-sidebar"].unbind("click")
     document["sidebar-box"].style = "display:block;"
@@ -23,7 +24,7 @@ def open_sidebar(_event):
     )
 
 
-def dark_mode(_event):
+def dark_mode(_event: Any) -> None:
     """Toggle on dark mode."""
 
     document["dark-mode"].html = "dark"
@@ -37,7 +38,7 @@ def dark_mode(_event):
     STORAGE["style-mode"] = "dark"
 
 
-def light_mode(_event):
+def light_mode(_event: Any) -> None:
     """Toggle on light mode."""
 
     document["light-mode"].html = "light"
@@ -51,7 +52,7 @@ def light_mode(_event):
     STORAGE["style-mode"] = "light"
 
 
-def select_style():
+def select_style() -> None:
     """Select style mode (light or dark) based on stored data."""
     if "style-mode" in STORAGE.keys():
         match STORAGE["style-mode"]:
@@ -63,9 +64,9 @@ def select_style():
         light_mode(None)
 
 
-def open_restart_confirm(_event) -> None:
+def open_restart_confirm(_event: Any) -> None:
     document["restart-confirm"].showModal()
 
 
-def close_restart_confirm(_event) -> None:
+def close_restart_confirm(_event: Any) -> None:
     document["restart-confirm"].close()

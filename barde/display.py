@@ -5,6 +5,7 @@ from browser import html as bh  # type:ignore # pylint: disable=import-error
 from browser import markdown as mk  # type:ignore # pylint: disable=import-error
 
 from barde.state import STORAGE, State
+from barde.passage import Passage
 
 
 _NEXT_ID = 0
@@ -14,7 +15,7 @@ STATE = None
 
 def call_passage(
     passage: Callable,
-    _init_state=None,
+    _init_state: Optional[State] = None,
     scroll_to_top: bool = True,
     **params: dict[str, Any],
 ) -> None:
@@ -81,16 +82,20 @@ def get_id() -> str:
     return f"id_{my_id}"
 
 
+BrTarget = Any
+BrEvent = Any
+
+
 class Output:
-    def __init__(self, target) -> None:
+    def __init__(self, target: BrTarget) -> None:
         self.target = target
 
-    def clear_page(self):
+    def clear_page(self) -> None:
         self.target.clear()
 
     def _display(
         self,
-        parent,
+        parent: BrTarget,
         text: str,
         markdown: bool = False,
         tooltip: str = "",
@@ -151,11 +156,15 @@ class Output:
                 tooltip = tooltips[int(i / 2)]
             self._display(parent, block_content, markdown, tooltip)
 
-    def title(self, text) -> None:
+    def title(self, text: str) -> None:
         self.target <= bh.H1(text)
 
     def link(
-        self, target_func: Callable, text: str, tooltip: str = "", **kwargs
+        self,
+        target_func: Passage,
+        text: str,
+        tooltip: str = "",
+        **kwargs: Any,
     ) -> None:
         my_id = get_id()
         target_str = target_func.__name__
@@ -171,14 +180,16 @@ class Output:
         self.target <= " "
 
         def result(
-            _, func=target_func, func_args: dict[str, Any] = kwargs.copy()
+            _: BrEvent,
+            func: Passage = target_func,
+            func_args: dict[str, Any] = kwargs.copy(),
         ) -> None:
             call_passage(func, **func_args)
 
         document[my_id].bind("click", result)
 
     def action_link(
-        self, func: Callable, text: str, tooltip: str = "", **kwargs
+        self, func: Callable, text: str, tooltip: str = "", **kwargs: Any
     ) -> None:
         my_id = get_id()
 
@@ -211,7 +222,9 @@ class Output:
 
         return Input(my_id, int)
 
-    def radio_buttons(self, choices: list[str], tooltips=None) -> Radio:
+    def radio_buttons(
+        self, choices: list[str], tooltips: Optional[list[str]] = None
+    ) -> Radio:
         if tooltips is not None:
             assert len(tooltips) == len(choices), "Provide one tooltip per choice"
 
@@ -234,7 +247,7 @@ class Output:
 
         return Radio(my_id)
 
-    def dynamic_info(self, text="") -> DynamicInfo:
+    def dynamic_info(self, text: str = "") -> DynamicInfo:
         my_id = get_id()
         self.target <= bh.P(id=my_id)
         return DynamicInfo(my_id, text)

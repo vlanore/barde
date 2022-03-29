@@ -1,7 +1,6 @@
-import sys
-from typing import Callable
+from typing import Any, Callable
 
-from browser import document  # type:ignore # pylint: disable=import-error
+from browser import document  # type: ignore # pylint: disable=import-error
 
 from barde.display import call_passage
 from barde.state import STORAGE, State
@@ -14,33 +13,26 @@ from barde.interface import (
 from barde.save import close_save_menu, open_save_menu, render_save_list
 import barde.globals as globs
 
-
-def passage(*args, **kwargs):
-    """Decorator used to define a passage.
-
-    Works without arguments, or with a single start(bool) arguments that denotes that
-    this passage is the starting passage."""
-
-    match args, kwargs:
-        case [func], {} if callable(func):
-            globs.PASSAGES[func.__name__] = func
-            return func
-
-        case ([init_state], {}) | ([], {"init_state": init_state}):
-
-            def result(func: Callable, init_state=init_state):
-                globs.START = func.__name__
-                globs.INIT_STATE = init_state
-                globs.PASSAGES[func.__name__] = func
-                return func
-
-            return result
-
-        case _:
-            sys.exit(1)
+StateType = Any
+Passage = Callable[..., None]
 
 
-def restart(_event):
+def passage(func: Passage) -> Passage:
+    globs.PASSAGES[func.__name__] = func
+    return func
+
+
+def start_passage(init_state: StateType) -> Callable[[Passage], Passage]:
+    def result(func: Passage, init_state: StateType = init_state) -> Passage:
+        globs.START = func.__name__  # type: ignore
+        globs.INIT_STATE = init_state  # type: ignore
+        globs.PASSAGES[func.__name__] = func
+        return func
+
+    return result
+
+
+def restart(_event: Any) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
@@ -54,7 +46,7 @@ def restart(_event):
     close_restart_confirm(None)
 
 
-def run():
+def run() -> None:
     # bond save menu and sidebar buttons
     document["close-save-menu"].bind("click", close_save_menu)
     document["saves"].bind("click", open_save_menu)
