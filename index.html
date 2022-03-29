@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="web/barde.css">
 </head>
 
-<body id="body" onload="brython(1);">
+<body id="body" onload="brython({debug:1,pythonpath:['.', 'web/Lib/site-packages']});">
     <div id="loading">
-        <!-- <img src="barde.svg" class="blink"> -->
         <p aria-busy="true">Loading...</p>
     </div>
 

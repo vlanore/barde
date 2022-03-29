@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from barde import (
     passage,
     run,
@@ -17,6 +17,16 @@ class Inventory:
 class MyState:
     inventory: Inventory = field(default_factory=Inventory)
     oven_is_on: bool = False
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, dict_in: dict) -> "MyState":
+        return MyState(
+            inventory=Inventory(**dict_in["inventory"]),
+            oven_is_on=dict_in["oven_is_on"],
+        )
 
 
 @passage(init_state=MyState())

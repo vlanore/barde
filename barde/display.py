@@ -4,7 +4,7 @@ from browser import document, window  # type:ignore ; pylint: disable=import-err
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 from browser import markdown as mk  # type:ignore ; pylint: disable=import-error
 
-from barde.state import STORAGE, encode_state
+from barde.state import STORAGE, State
 
 
 _NEXT_ID = 0
@@ -22,13 +22,14 @@ def call_passage(
     global STATE
     if _init_state is not None:
         STATE = _init_state
+    assert isinstance(STATE, State)
 
     document["main"].clear()
     document["sidebar-content"].clear()
 
     STORAGE["last_passage"] = passage.__name__
     STORAGE["last_passage_args"] = params
-    STORAGE["state_before_last_passage"] = encode_state(STATE)
+    STORAGE["state_before_last_passage"] = STATE.to_dict()
     passage(
         Output(document["main"]),
         Output(document["sidebar-content"]),

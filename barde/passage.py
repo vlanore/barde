@@ -1,13 +1,12 @@
-import json
 import sys
 import datetime
-from typing import Callable, Optional, Any
+from typing import Callable, Type
 
 from browser import document  # type:ignore ; pylint: disable=import-error
 from browser import html as bh  # type:ignore ; pylint: disable=import-error
 
 from barde.display import call_passage
-from barde.state import STORAGE
+from barde.state import STORAGE, State
 
 
 PASSAGES = {}
@@ -187,11 +186,10 @@ def load_from(slot: int) -> None:
     document["main"].clear()
     document["sidebar-content"].clear()
 
-    state_type = type(INIT_STATE)
-    state_dict = json.loads(STORAGE[f"save__{slot}__state"])
-    print(state_dict)
-    state_before_last_passage = state_type(**state_dict)
-    print(init_state)
+    assert isinstance(INIT_STATE, State)
+    state_type: Type[State] = type(INIT_STATE)
+    state_dict = STORAGE[f"save__{slot}__state"]
+    state_before_last_passage = state_type.from_dict(state_dict)
     last_passage = STORAGE[f"save__{slot}__last_passage"]
     last_passage_args = STORAGE[f"save__{slot}__last_passage_args"]
 
@@ -218,11 +216,10 @@ def run():
 
     # start from the last open page, or from scratch
     if "last_passage" in STORAGE.keys():
+        assert isinstance(INIT_STATE, State)
         state_type = type(INIT_STATE)
-        state_dict = json.loads(STORAGE["state_before_last_passage"])
-        print(state_dict)
-        init_state = state_type(**state_dict)
-        print(init_state)
+        state_dict = STORAGE["state_before_last_passage"]
+        init_state = state_type.from_dict(state_dict)
         call_passage(
             PASSAGES[STORAGE["last_passage"]],
             _init_state=init_state,
