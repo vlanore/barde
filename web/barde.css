@@ -220,8 +220,8 @@ span.has-tooltip:hover {
     padding-left: calc(var(--hexgrid-cell-size) / 2 + var(--hexgrid-gap) / 2);
     padding-bottom: calc(var(--hexgrid-cell-size) * 0.7114 / 2);
     column-gap: var(--hexgrid-gap);
-    row-gap: calc(var(--hexgrid-gap) * 1.5);
-    margin: var(--block-spacing-vertical) 0;
+    row-gap: calc(var(--hexgrid-gap) * 1.1547);
+    margin: var(--block-spacing-vertical) auto;
 }
 
 .hexgrid-cell-wrap {

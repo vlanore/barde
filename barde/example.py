@@ -155,7 +155,7 @@ def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0) 
             ],
             [
                 None,
-                HexCellInfo("are"),
+                HexCellInfo("are", action=lambda: print("test")),
                 HexCellInfo("you"),
             ],
         ]

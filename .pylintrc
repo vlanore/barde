@@ -15,4 +15,5 @@ disable =
     global-statement,
     global-variable-not-assigned,
     unspecified-encoding,
-    no-member
+    no-member,
+    too-many-locals

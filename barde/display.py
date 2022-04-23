@@ -88,7 +88,7 @@ def get_id() -> str:
 class HexCellInfo:
     text: str = ""
     tooltip: Optional[str] = None
-    link: Optional[str] = None
+    action: Optional[Callable] = None
     cls: Optional[str] = None  # CSS class
 
 
@@ -309,14 +309,15 @@ class Output:
         # create container
         nb_lines = len(cells)
         nb_cols = max(len(line) for line in cells)
-        cell_size = 150
+        cell_size = 100
         line_height = cell_size * 0.7114 * 1.1547
-        gap = 10
+        gap = 15
         style = (
             f"--hexgrid-cell-size: {cell_size}px;"
             f"--hexgrid-gap: {gap}px;"
             f"grid-template-columns: repeat({nb_cols}, {cell_size}px);"
             f"grid-template-rows: repeat({nb_lines}, {line_height}px);"
+            f"width: {(nb_cols + 0.5) * (gap + cell_size)}px"
         )
         self.target <= bh.DIV(Class="hexgrid-container", style=style)
         container = self.target.children[-1]
@@ -336,7 +337,12 @@ class Output:
                     else ""
                 )
                 style = offset + coordinates
+                if cell is not None and cell.action is not None:
+                    style += "cursor: pointer;"
 
                 if cell is not None:
                     container <= bh.DIV(Class="hexgrid-cell-wrap", style=style)
-                    container.children[-1] <= bh.DIV(cell.text, Class="hexgrid-cell")
+                    cell_div = container.children[-1]
+                    cell_div <= bh.DIV(cell.text, Class="hexgrid-cell")
+                    if cell.action is not None:
+                        cell_div.bind("click", lambda _, action=cell.action: action())
