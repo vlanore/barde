@@ -6,7 +6,7 @@ from barde import (
     Output,
 )
 from barde.passage import start_passage
-from barde.display import call_passage
+from barde.display import HexCellInfo, call_passage
 
 
 @dataclass
@@ -139,6 +139,26 @@ def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0) 
             "Your <b>house</b> is a place with a big <b>oven</b>"
             " which might be linked to <b>pie</b> cooking"
         ),
+    )
+
+    body.hex_grid(
+        [
+            [
+                HexCellInfo("hello"),
+                None,
+                HexCellInfo("world"),
+            ],
+            [
+                HexCellInfo("hi"),
+                HexCellInfo("there"),
+                HexCellInfo("how"),
+            ],
+            [
+                None,
+                HexCellInfo("are"),
+                HexCellInfo("you"),
+            ],
+        ]
     )
 
     # body.cards(

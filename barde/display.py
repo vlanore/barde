@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Any, Callable, Optional
 
 from browser import document, window  # type:ignore # pylint: disable=import-error
@@ -81,6 +82,14 @@ def get_id() -> str:
     my_id = _NEXT_ID
     _NEXT_ID += 1
     return f"id_{my_id}"
+
+
+@dataclass
+class HexCellInfo:
+    text: str = ""
+    tooltip: Optional[str] = None
+    link: Optional[str] = None
+    cls: Optional[str] = None  # CSS class
 
 
 BrTarget = Any
@@ -291,3 +300,37 @@ class Output:
                 if action is not None:
                     grid.children[-1].bind("click", lambda _, action=action: action())
                     grid.children[-1].style.cssText += "cursor: pointer;"
+
+    def hex_grid(self, cells: list[list[Optional[HexCellInfo]]]) -> None:
+        """Displays a hex grid.
+
+        First line is shifted left. Missing cells should be set to None."""
+
+        # create container
+        nb_lines = len(cells)
+        nb_cols = max(len(line) for line in cells)
+        cell_size = 100
+        line_height = cell_size * 0.7114
+        style = (
+            f"grid-template-columns: repeat({nb_cols}, {cell_size}px);"
+            f"grid-template-rows: repeat({nb_lines}, {line_height}px);"
+        )
+        self.target <= bh.DIV(Class="hexgrid-container", style=style)
+        container = self.target.children[-1]
+
+        # create cells
+        for line_index, line in enumerate(cells):
+
+            # create all cells in line
+            for cell_index, cell in enumerate(line):
+                coordinates = (
+                    f"grid-column-start: {cell_index+1};"
+                    f"grid-row-start: {line_index+1};"
+                )
+                offset = "margin-left:-50px;" if line_index % 2 == 0 else ""
+                style = offset + coordinates
+
+                if cell is not None:
+                    container <= bh.DIV(cell.text, Class="hexgrid-cell", style=style)
+                else:
+                    container <= bh.DIV(style=style)

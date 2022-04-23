@@ -212,3 +212,18 @@ span.has-tooltip:hover {
     gap: 1rem;
     margin: var(--block-spacing-vertical) 0;
 }
+
+.hexgrid-container {
+    border: solid black 1px;
+    display: grid;
+    padding-left: 50px;
+    padding-bottom: 50px;
+}
+
+.hexgrid-cell {
+    background-color: aquamarine;
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    text-align: center;
+    width: 100px;
+    height: 100px;
+}
