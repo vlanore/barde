@@ -214,16 +214,28 @@ span.has-tooltip:hover {
 }
 
 .hexgrid-container {
-    border: solid black 1px;
+    --hexgrid-cell-size: 100px;
+    --hexgrid-gap: 10px;
     display: grid;
-    padding-left: 50px;
-    padding-bottom: 50px;
+    padding-left: calc(var(--hexgrid-cell-size) / 2 + var(--hexgrid-gap) / 2);
+    padding-bottom: calc(var(--hexgrid-cell-size) * 0.7114 / 2);
+    column-gap: var(--hexgrid-gap);
+    row-gap: calc(var(--hexgrid-gap) * 1.5);
+    margin: var(--block-spacing-vertical) 0;
+}
+
+.hexgrid-cell-wrap {
+    filter: drop-shadow(0 0.125rem 1rem rgba(27, 40, 50, 0.04)) drop-shadow(0 0.125rem 2rem rgba(27, 40, 50, 0.08)) drop-shadow(0 0 0.0625rem rgba(27, 40, 50, 0.024));
 }
 
 .hexgrid-cell {
-    background-color: aquamarine;
+    background-color: var(--card-background-color);
     clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
     text-align: center;
-    width: 100px;
-    height: 100px;
+    width: var(--hexgrid-cell-size);
+    height: calc(var(--hexgrid-cell-size) * 1.1547);
 }

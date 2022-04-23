@@ -309,9 +309,12 @@ class Output:
         # create container
         nb_lines = len(cells)
         nb_cols = max(len(line) for line in cells)
-        cell_size = 100
-        line_height = cell_size * 0.7114
+        cell_size = 150
+        line_height = cell_size * 0.7114 * 1.1547
+        gap = 10
         style = (
+            f"--hexgrid-cell-size: {cell_size}px;"
+            f"--hexgrid-gap: {gap}px;"
             f"grid-template-columns: repeat({nb_cols}, {cell_size}px);"
             f"grid-template-rows: repeat({nb_lines}, {line_height}px);"
         )
@@ -327,10 +330,13 @@ class Output:
                     f"grid-column-start: {cell_index+1};"
                     f"grid-row-start: {line_index+1};"
                 )
-                offset = "margin-left:-50px;" if line_index % 2 == 0 else ""
+                offset = (
+                    f"margin-left:-{(cell_size + gap)/2}px;"
+                    if line_index % 2 == 0
+                    else ""
+                )
                 style = offset + coordinates
 
                 if cell is not None:
-                    container <= bh.DIV(cell.text, Class="hexgrid-cell", style=style)
-                else:
-                    container <= bh.DIV(style=style)
+                    container <= bh.DIV(Class="hexgrid-cell-wrap", style=style)
+                    container.children[-1] <= bh.DIV(cell.text, Class="hexgrid-cell")
