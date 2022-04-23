@@ -213,6 +213,11 @@ span.has-tooltip:hover {
     margin: var(--block-spacing-vertical) 0;
 }
 
+.card-action:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
 .hexgrid-container {
     --hexgrid-cell-size: 100px;
     --hexgrid-gap: 10px;
@@ -226,6 +231,13 @@ span.has-tooltip:hover {
 
 .hexgrid-cell-wrap {
     filter: drop-shadow(0 0.125rem 1rem rgba(27, 40, 50, 0.04)) drop-shadow(0 0.125rem 2rem rgba(27, 40, 50, 0.08)) drop-shadow(0 0 0.0625rem rgba(27, 40, 50, 0.024));
+}
+
+.hexgrid-action:hover {
+    zoom: 110%;
+    z-index: 999;
+    transform: translate(-5%, -5%);
+    cursor: pointer;
 }
 
 .hexgrid-cell {

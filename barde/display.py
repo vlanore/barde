@@ -270,6 +270,8 @@ class Output:
         )
         grid = self.target.children[-1]
         for image, text, action in card_info:
+            cls = "card-action" if action is not None else ""
+
             if text != "" and image != "":
                 grid <= bh.DIV(Class="flip-card")
                 grid.children[-1] <= bh.DIV(Class="flip-card-inner")
@@ -279,27 +281,25 @@ class Output:
                     style=f"background-image: url({image});",
                 )
                 inner <= bh.DIV(text, Class="flip-card-back")
-                if action is not None:
-                    inner.bind("click", lambda _, action=action: action())
-                    inner.style = "cursor: pointer;"
+                to_bind = inner
 
             elif image != "":
                 grid <= bh.DIV(
-                    Class="single-card",
+                    Class=cls + " single-card",
                     style=f"background-image: url({image});",
                 )
-                if action is not None:
-                    grid.children[-1].bind("click", lambda _, action=action: action())
-                    grid.children[-1].style.cssText += "cursor: pointer;"
+                to_bind = grid.children[-1]
 
             elif text != "":
                 grid <= bh.DIV(
                     text,
-                    Class="single-card",
+                    Class=cls + " single-card",
                 )
-                if action is not None:
-                    grid.children[-1].bind("click", lambda _, action=action: action())
-                    grid.children[-1].style.cssText += "cursor: pointer;"
+                to_bind = grid.children[-1]
+            else:
+                raise ValueError("Need text or image")
+
+            to_bind.bind("click", lambda _, action=action: action())
 
     def hex_grid(self, cells: list[list[Optional[HexCellInfo]]]) -> None:
         """Displays a hex grid.
@@ -337,12 +337,13 @@ class Output:
                     else ""
                 )
                 style = offset + coordinates
+                cls = "hexgrid-cell"
                 if cell is not None and cell.action is not None:
-                    style += "cursor: pointer;"
+                    cls += " hexgrid-action"
 
                 if cell is not None:
                     container <= bh.DIV(Class="hexgrid-cell-wrap", style=style)
                     cell_div = container.children[-1]
-                    cell_div <= bh.DIV(cell.text, Class="hexgrid-cell")
+                    cell_div <= bh.DIV(cell.text, Class=cls)
                     if cell.action is not None:
                         cell_div.bind("click", lambda _, action=cell.action: action())
