@@ -251,3 +251,7 @@ span.has-tooltip:hover {
     width: var(--hexgrid-cell-size);
     height: calc(var(--hexgrid-cell-size) * 1.1547);
 }
+
+.focus {
+    background-color: red;
+}

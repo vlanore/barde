@@ -296,6 +296,7 @@ class Output:
                     Class=cls + " single-card",
                 )
                 to_bind = grid.children[-1]
+
             else:
                 raise ValueError("Need text or image")
 
@@ -338,10 +339,13 @@ class Output:
                 )
                 style = offset + coordinates
                 cls = "hexgrid-cell"
-                if cell is not None and cell.action is not None:
-                    cls += " hexgrid-action"
 
                 if cell is not None:
+                    if cell.cls is not None:
+                        cls += " " + cell.cls
+                    if cell.action is not None:
+                        cls += " hexgrid-action"
+
                     container <= bh.DIV(Class="hexgrid-cell-wrap", style=style)
                     cell_div = container.children[-1]
                     cell_div <= bh.DIV(cell.text, Class=cls)
