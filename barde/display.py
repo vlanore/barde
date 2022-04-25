@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Callable, Optional
 
 from browser import document, window  # type:ignore # pylint: disable=import-error
@@ -90,6 +90,7 @@ class HexCellInfo:
     tooltip: Optional[str] = None
     action: Optional[Callable] = None
     cls: Optional[str] = None  # CSS class
+    borders: dict[str, str] = field(default_factory=dict)
 
 
 BrTarget = Any
@@ -312,7 +313,7 @@ class Output:
         nb_cols = max(len(line) for line in cells)
         cell_size = 100
         line_height = cell_size * 0.7114 * 1.1547
-        gap = 15
+        gap = 30
         style = (
             f"--hexgrid-cell-size: {cell_size}px;"
             f"--hexgrid-gap: {gap}px;"
@@ -348,6 +349,10 @@ class Output:
 
                     container <= bh.DIV(Class="hexgrid-cell-wrap", style=style)
                     cell_div = container.children[-1]
+                    # border classes
+                    for side, bdr_cls in cell.borders.items():
+                        cell_div <= bh.DIV(Class=f"{side}-border {bdr_cls}")
+
                     cell_div <= bh.DIV(cell.text, Class=cls)
                     if cell.action is not None:
                         cell_div.bind("click", lambda _, action=cell.action: action())

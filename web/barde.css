@@ -255,3 +255,19 @@ span.has-tooltip:hover {
 .focus {
     background-color: red;
 }
+
+.tl-border {
+    z-index: 0;
+    position: fixed;
+    background-color: blue;
+    width: calc((var(--hexgrid-cell-size) + var(--hexgrid-gap)) / 2 * 1.1547);
+    height: calc(var(--hexgrid-gap) / 2);
+    transform: translateX(calc(var(--hexgrid-cell-size) / 2))/**/
+    translate( calc( (var(--hexgrid-cell-size) + var(--hexgrid-gap)) / -4 * 1.1547), calc(var(--hexgrid-gap) / -4))/**/
+    translateY( calc( 0.5774 * var(--hexgrid-cell-size) / 4))/**/
+    translateX( calc(var(--hexgrid-cell-size) / -4))/**/
+    translateY( calc( var(--hexgrid-gap) * 0.866 * -0.25))/**/
+    translateX( calc( var(--hexgrid-gap) * 0.5 * -0.25))/**/
+    rotate(-30deg);
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+}
