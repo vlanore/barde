@@ -225,7 +225,7 @@ span.has-tooltip:hover {
     padding-left: calc(var(--hexgrid-cell-size) / 2 + var(--hexgrid-gap) / 2);
     padding-bottom: calc(var(--hexgrid-cell-size) * 0.7114 / 2);
     column-gap: var(--hexgrid-gap);
-    row-gap: calc(var(--hexgrid-gap) * 1.1547);
+    row-gap: calc(var(--hexgrid-gap) * 0.866);
     margin: var(--block-spacing-vertical) auto;
 }
 
@@ -262,12 +262,5 @@ span.has-tooltip:hover {
     background-color: blue;
     width: calc((var(--hexgrid-cell-size) + var(--hexgrid-gap)) / 2 * 1.1547);
     height: calc(var(--hexgrid-gap) / 2);
-    transform: translateX(calc(var(--hexgrid-cell-size) / 2))/**/
-    translate( calc( (var(--hexgrid-cell-size) + var(--hexgrid-gap)) / -4 * 1.1547), calc(var(--hexgrid-gap) / -4))/**/
-    translateY( calc( 0.5774 * var(--hexgrid-cell-size) / 4))/**/
-    translateX( calc(var(--hexgrid-cell-size) / -4))/**/
-    translateY( calc( var(--hexgrid-gap) * 0.866 * -0.25))/**/
-    translateX( calc( var(--hexgrid-gap) * 0.5 * -0.25))/**/
-    rotate(-30deg);
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+    clip-path: polygon(0 0, 100% 0, calc(100% * (1 - var(--border-clip-ratio))) 100%, calc(100% * var(--border-clip-ratio)) 100%);
 }

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from math import cos, radians, sin
 from typing import Any, Callable, Optional
 
 from browser import document, window  # type:ignore # pylint: disable=import-error
@@ -303,7 +304,12 @@ class Output:
 
             to_bind.bind("click", lambda _, action=action: action())
 
-    def hex_grid(self, cells: list[list[Optional[HexCellInfo]]]) -> None:
+    def hex_grid(
+        self,
+        cells: list[list[Optional[HexCellInfo]]],
+        cell_size: int = 100,
+        gap: int = 15,
+    ) -> None:
         """Displays a hex grid.
 
         First line is shifted left. Missing cells should be set to None."""
@@ -311,12 +317,12 @@ class Output:
         # create container
         nb_lines = len(cells)
         nb_cols = max(len(line) for line in cells)
-        cell_size = 100
-        line_height = cell_size * 0.7114 * 1.1547
-        gap = 30
+        line_height = cell_size * (1.1547 - 0.289)
+        border_clip_ratio = float(gap) / (cell_size + gap) / 2.0
         style = (
             f"--hexgrid-cell-size: {cell_size}px;"
             f"--hexgrid-gap: {gap}px;"
+            f"--border-clip-ratio: {border_clip_ratio};"
             f"grid-template-columns: repeat({nb_cols}, {cell_size}px);"
             f"grid-template-rows: repeat({nb_lines}, {line_height}px);"
             f"width: {(nb_cols + 0.5) * (gap + cell_size)}px"
@@ -349,9 +355,29 @@ class Output:
 
                     container <= bh.DIV(Class="hexgrid-cell-wrap", style=style)
                     cell_div = container.children[-1]
+
                     # border classes
                     for side, bdr_cls in cell.borders.items():
-                        cell_div <= bh.DIV(Class=f"{side}-border {bdr_cls}")
+                        border_transforms = []
+                        angle = 210
+                        border_transforms.append(  # move left corner to hex center
+                            f"translate({cell_size / 2.}px, {(gap + cell_size) / 2.}px)"
+                        )
+                        border_transforms.append(  # center on top of hex
+                            f"translate({(cell_size + gap) / -4. * 1.1547}px, "
+                            f"{gap / -4.}px)"
+                        )
+                        distance_to_center = 0.25 * gap + 0.5 * cell_size
+                        border_transforms.append(
+                            f"translate({-distance_to_center * sin(radians(angle))}px, "
+                            f"{-distance_to_center * cos(radians(angle))}px)"
+                        )
+                        border_transforms.append(f"rotate(-{angle}deg)")
+                        print(f"transform: {' '.join(border_transforms)};")
+                        cell_div <= bh.DIV(
+                            Class=f"{side}-border {bdr_cls}",
+                            style=f"transform:{' '.join(border_transforms)};",
+                        )
 
                     cell_div <= bh.DIV(cell.text, Class=cls)
                     if cell.action is not None:
