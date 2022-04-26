@@ -256,10 +256,10 @@ span.has-tooltip:hover {
     background-color: red;
 }
 
-.tl-border {
+.hexgrid-cell-border {
     z-index: 0;
     position: fixed;
-    background-color: blue;
+    background-color: var(--primary);
     width: calc((var(--hexgrid-cell-size) + var(--hexgrid-gap)) / 2 * 1.1547);
     height: calc(var(--hexgrid-gap) / 2);
     clip-path: polygon(0 0, 100% 0, calc(100% * (1 - var(--border-clip-ratio))) 100%, calc(100% * var(--border-clip-ratio)) 100%);

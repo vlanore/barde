@@ -91,7 +91,7 @@ class HexCellInfo:
     tooltip: Optional[str] = None
     action: Optional[Callable] = None
     cls: Optional[str] = None  # CSS class
-    borders: dict[str, str] = field(default_factory=dict)
+    borders: dict[int, str] = field(default_factory=dict)  # orientation, class
 
 
 BrTarget = Any
@@ -358,8 +358,9 @@ class Output:
 
                     # border classes
                     for side, bdr_cls in cell.borders.items():
+                        assert side in range(6)
                         border_transforms = []
-                        angle = 210
+                        angle = 30 + 60 * side
                         border_transforms.append(  # move left corner to hex center
                             f"translate({cell_size / 2.}px, {(gap + cell_size) / 2.}px)"
                         )
@@ -375,7 +376,7 @@ class Output:
                         border_transforms.append(f"rotate(-{angle}deg)")
                         print(f"transform: {' '.join(border_transforms)};")
                         cell_div <= bh.DIV(
-                            Class=f"{side}-border {bdr_cls}",
+                            Class=f"hexgrid-cell-border {bdr_cls}",
                             style=f"transform:{' '.join(border_transforms)};",
                         )
 
