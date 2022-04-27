@@ -16,6 +16,10 @@ _NEXT_ID = 0
 STATE = None
 
 
+def set_page_title(new_title: str) -> None:
+    document.title = new_title
+
+
 def call_passage(
     passage: Callable,
     _init_state: Optional[State] = None,
@@ -374,7 +378,6 @@ class Output:
                             f"{-distance_to_center * cos(radians(angle))}px)"
                         )
                         border_transforms.append(f"rotate(-{angle}deg)")
-                        print(f"transform: {' '.join(border_transforms)};")
                         cell_div <= bh.DIV(
                             Class=f"hexgrid-cell-border {bdr_cls}",
                             style=f"transform:{' '.join(border_transforms)};",

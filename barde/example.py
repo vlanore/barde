@@ -6,7 +6,7 @@ from barde import (
     Output,
 )
 from barde.passage import start_passage
-from barde.display import HexCellInfo, call_passage
+from barde.display import call_passage, set_page_title
 
 
 @dataclass
@@ -141,25 +141,25 @@ def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0) 
         ),
     )
 
-    body.hex_grid(
-        [
-            [
-                HexCellInfo("hello"),
-                None,
-                HexCellInfo("world"),
-            ],
-            [
-                HexCellInfo("hi"),
-                HexCellInfo("there", cls="focus"),
-                HexCellInfo("how", borders={2: "test", 4: "test"}),
-            ],
-            [
-                None,
-                HexCellInfo("are", action=lambda: print("test")),
-                HexCellInfo("you", borders={5: "test"}),
-            ],
-        ]
-    )
+    # body.hex_grid(
+    #     [
+    #         [
+    #             HexCellInfo("hello"),
+    #             None,
+    #             HexCellInfo("world"),
+    #         ],
+    #         [
+    #             HexCellInfo("hi"),
+    #             HexCellInfo("there", cls="focus"),
+    #             HexCellInfo("how", borders={2: "test", 4: "test"}),
+    #         ],
+    #         [
+    #             None,
+    #             HexCellInfo("are", action=lambda: print("test")),
+    #             HexCellInfo("you", borders={5: "test"}),
+    #         ],
+    #     ]
+    # )
 
     # body.cards(
     #     [
@@ -192,4 +192,5 @@ def orchard(body: Output, sidebar: Output, state: MyState, new_apples: int = 0) 
 
 
 if __name__ == "__main__":
+    set_page_title("Apple Adventure")
     run()
