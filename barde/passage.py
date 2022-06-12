@@ -27,7 +27,7 @@ def start_passage(init_state: Callable[[], StateType]) -> Callable[[Passage], Pa
         func: Passage, init_state: Callable[[], StateType] = init_state
     ) -> Passage:
         globs.START = func.__name__  # type: ignore
-        globs.INIT_STATE = init_state()  # type: ignore
+        globs.INIT_STATE = init_state  # type: ignore
         globs.PASSAGES[func.__name__] = func
         return func
 
@@ -63,8 +63,8 @@ def run() -> None:
 
     # start from the last open page, or from scratch
     if "last_passage" in STORAGE.keys():
-        assert isinstance(globs.INIT_STATE, State)
-        state_type = type(globs.INIT_STATE)
+        assert isinstance(globs.INIT_STATE(), State)  # type:ignore
+        state_type = type(globs.INIT_STATE())  # type:ignore
         state_dict = STORAGE["state_before_last_passage"]
         init_state = state_type.from_dict(state_dict)
         call_passage(
@@ -74,7 +74,7 @@ def run() -> None:
         )
 
     elif globs.START is not None:
-        init_state = globs.INIT_STATE
+        init_state = globs.INIT_STATE()  # type:ignore
         call_passage(globs.PASSAGES[globs.START], _init_state=init_state)
 
     # remove loading screen and display app

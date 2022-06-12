@@ -68,7 +68,7 @@ def load_from(slot: int) -> None:
     document["sidebar-content"].clear()
 
     assert isinstance(globs.INIT_STATE, State)
-    state_type: Type[State] = type(globs.INIT_STATE)
+    state_type: Type[State] = type(globs.INIT_STATE())  # type: ignore
     state_dict = STORAGE[f"save__{slot}__state"]
     state_before_last_passage = state_type.from_dict(state_dict)
     last_passage = STORAGE[f"save__{slot}__last_passage"]
