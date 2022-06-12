@@ -31,7 +31,7 @@ class MyState:
         )
 
 
-@start_passage(init_state=MyState())
+@start_passage(init_state=MyState)
 def init(_body: Output, _sidebar: Output, state: MyState) -> None:
     state.inventory.apples = 0
     state.inventory.pies = 0

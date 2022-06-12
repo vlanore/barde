@@ -22,10 +22,12 @@ def passage(func: Passage) -> Passage:
     return func
 
 
-def start_passage(init_state: StateType) -> Callable[[Passage], Passage]:
-    def result(func: Passage, init_state: StateType = init_state) -> Passage:
+def start_passage(init_state: Callable[[], StateType]) -> Callable[[Passage], Passage]:
+    def result(
+        func: Passage, init_state: Callable[[], StateType] = init_state
+    ) -> Passage:
         globs.START = func.__name__  # type: ignore
-        globs.INIT_STATE = init_state  # type: ignore
+        globs.INIT_STATE = init_state()  # type: ignore
         globs.PASSAGES[func.__name__] = func
         return func
 
