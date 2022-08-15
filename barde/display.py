@@ -217,7 +217,7 @@ class Output:
 
         self.target <= " "
 
-        document[my_id].bind("click", lambda _, kwargs=kwargs.copy(): func(*kwargs))
+        document[my_id].bind("click", lambda _, kwargs=kwargs.copy(): func(**kwargs))
 
     def image(self, src: str) -> None:
         self.target <= bh.IMG(src=src)
