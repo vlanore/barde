@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <link rel="stylesheet" href="../web/barde.css">
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+
+<body id="body">
+    <py-env>
+        - jsonpickle
+        - barde-0.1-py3-none-any.whl
+    </py-env>
+    <py-script src="basic.py"></py-script>
+
+    <div id="sidebar" style="visibility: hidden;">
+        <article id="sidebar-box">
+            <nav>
+                <ul>
+                    <li> &#9665; </li>
+                    <li> &#9655; </li>
+                </ul>
+                <ul>
+                    <li id="hide-sidebar">&#x2715;</li>
+                </ul>
+            </nav>
+            <p id="sidebar-content"></p>
+            <footer>
+                <div class="grid">
+                    <button id="saves" href="javascript:void(0);">saves</button>
+                    <button id="restart" href="javascript:void(0);">restart</button>
+                </div>
+                <span id="light-mode">light</span> - <span id="dark-mode">dark</span><br>
+                <a href="https://github.com/vlanore/barde" id="barde-info">powered by barde</a>
+            </footer>
+        </article>
+        <div id="open-sidebar" style="display:none;">☰</div>
+    </div>
+
+    <main id="main" style="visibility: hidden;"></main>
+
+    <dialog id="save-menu" close>
+        <article>
+            <header>
+                Save menu
+            </header>
+            <table role="grid">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="save-menu-list">
+                </tbody>
+            </table>
+            <a id="close-save-menu" href="javascript:void(0);">Close</a>
+        </article>
+    </dialog>
+
+    <dialog id="restart-confirm" close>
+        <article>
+            <p>Are you sure you want to restart?<br />You will lose your current progress.</p>
+            <p class="grid">
+                <button id="restart-yes" href="javascript:void(0);">Restart</button>
+                <button id="restart-no" href="javascript:void(0);" class="secondary">Cancel</button>
+            </p>
+        </article>
+    </dialog>
+
+</body>
+
+</html>

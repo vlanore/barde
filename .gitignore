@@ -8,3 +8,6 @@ index.html
 README.txt
 barde.brython.js
 pyrightconfig.json
+dist/
+*.whl
+*.tar.gz

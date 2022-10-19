@@ -9,5 +9,4 @@ setup(
     author="vlanore",
     author_email="vincent.lanore@gmail.com",
     packages=["barde"],
-    install_requires=["brython"],
 )
