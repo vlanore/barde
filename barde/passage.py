@@ -1,7 +1,5 @@
 from typing import Any, Callable
 
-from browser import document  # type: ignore # pylint: disable=import-error
-
 from barde.display import call_passage
 from barde.state import STORAGE, State
 from barde.interface import (
